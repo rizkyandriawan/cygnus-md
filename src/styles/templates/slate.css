@@ -1,0 +1,142 @@
+/* Slate Template - Professional gray/blue, corporate */
+
+.template-slate {
+  font-family: 'Source Sans Pro', 'Open Sans', 'Segoe UI', sans-serif;
+  font-size: 11pt;
+  line-height: 1.65;
+  color: #334155;
+}
+
+.template-slate h1 {
+  font-size: 26pt;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 0.7em;
+  margin-top: 0;
+  padding-bottom: 0.4em;
+  border-bottom: 3px solid #3b82f6;
+}
+
+.template-slate h2 {
+  font-size: 17pt;
+  font-weight: 600;
+  color: #1e40af;
+  margin-top: 1.7em;
+  margin-bottom: 0.5em;
+}
+
+.template-slate h3 {
+  font-size: 13pt;
+  font-weight: 600;
+  color: #475569;
+  margin-top: 1.4em;
+  margin-bottom: 0.4em;
+}
+
+.template-slate h4,
+.template-slate h5,
+.template-slate h6 {
+  font-size: 11pt;
+  font-weight: 600;
+  color: #64748b;
+  margin-top: 1.2em;
+  margin-bottom: 0.3em;
+}
+
+.template-slate p {
+  margin-bottom: 1em;
+}
+
+.template-slate a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.template-slate a:hover {
+  text-decoration: underline;
+}
+
+.template-slate code {
+  font-family: 'IBM Plex Mono', 'Consolas', monospace;
+  background: #f1f5f9;
+  padding: 0.12em 0.35em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  color: #1e40af;
+}
+
+.template-slate pre {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 1em;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1em 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10pt;
+}
+
+.template-slate pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.template-slate blockquote {
+  border-left: 4px solid #94a3b8;
+  padding-left: 1em;
+  margin: 1em 0;
+  color: #64748b;
+  background: #f8fafc;
+  padding: 0.8em 1em;
+}
+
+.template-slate ul,
+.template-slate ol {
+  margin: 1em 0;
+  padding-left: 1.8em;
+}
+
+.template-slate li {
+  margin-bottom: 0.35em;
+}
+
+.template-slate table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+.template-slate th,
+.template-slate td {
+  border: 1px solid #cbd5e1;
+  padding: 0.5em 0.7em;
+  text-align: left;
+}
+
+.template-slate th {
+  background: #1e40af;
+  color: #fff;
+  font-weight: 600;
+}
+
+.template-slate tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+.template-slate hr {
+  border: none;
+  border-top: 1px solid #cbd5e1;
+  margin: 2em 0;
+}
+
+.template-slate img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #e2e8f0;
+}
+
+.template-slate strong {
+  font-weight: 600;
+  color: #0f172a;
+}

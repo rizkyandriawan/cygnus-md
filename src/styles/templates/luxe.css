@@ -1,0 +1,164 @@
+/* Luxe Template - Elegant, serif, gold accents */
+
+.template-luxe {
+  font-family: 'Cormorant Garamond', 'Playfair Display', 'Georgia', serif;
+  font-size: 12pt;
+  line-height: 1.8;
+  color: #1a1a1a;
+}
+
+.template-luxe h1 {
+  font-size: 32pt;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 0.6em;
+  margin-top: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.template-luxe h1::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #b8860b, transparent);
+  margin: 0.5em auto 0;
+}
+
+.template-luxe h2 {
+  font-size: 18pt;
+  font-weight: 500;
+  color: #8b7355;
+  margin-top: 1.8em;
+  margin-bottom: 0.6em;
+  letter-spacing: 0.05em;
+}
+
+.template-luxe h3 {
+  font-size: 14pt;
+  font-weight: 600;
+  color: #4a4a4a;
+  margin-top: 1.4em;
+  margin-bottom: 0.5em;
+  font-style: italic;
+}
+
+.template-luxe h4,
+.template-luxe h5,
+.template-luxe h6 {
+  font-size: 12pt;
+  font-weight: 600;
+  color: #666;
+  margin-top: 1.2em;
+  margin-bottom: 0.4em;
+}
+
+.template-luxe p {
+  margin-bottom: 1em;
+}
+
+.template-luxe a {
+  color: #8b7355;
+  text-decoration: none;
+  border-bottom: 1px solid #d4af37;
+}
+
+.template-luxe a:hover {
+  color: #b8860b;
+}
+
+.template-luxe code {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  background: #f8f6f3;
+  padding: 0.15em 0.4em;
+  font-size: 0.9em;
+  border: 1px solid #e8e4de;
+}
+
+.template-luxe pre {
+  background: #2c2c2c;
+  color: #f5f5f5;
+  padding: 1.2em;
+  overflow-x: auto;
+  margin: 1.2em 0;
+  font-family: 'Courier Prime', monospace;
+  font-size: 10pt;
+  border: 1px solid #b8860b;
+}
+
+.template-luxe pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+
+.template-luxe blockquote {
+  margin: 1.5em 0;
+  padding: 1em 1.5em;
+  border-left: 3px solid #d4af37;
+  background: #faf9f7;
+  font-style: italic;
+  color: #555;
+}
+
+.template-luxe ul,
+.template-luxe ol {
+  margin: 1em 0;
+  padding-left: 2em;
+}
+
+.template-luxe li {
+  margin-bottom: 0.4em;
+}
+
+.template-luxe table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2em 0;
+}
+
+.template-luxe th,
+.template-luxe td {
+  border: 1px solid #d4af37;
+  padding: 0.6em 0.8em;
+  text-align: left;
+}
+
+.template-luxe th {
+  background: linear-gradient(180deg, #f8f6f3, #efe9df);
+  font-weight: 600;
+  color: #8b7355;
+  letter-spacing: 0.03em;
+}
+
+.template-luxe hr {
+  border: none;
+  text-align: center;
+  margin: 2em 0;
+  height: 20px;
+}
+
+.template-luxe hr::before {
+  content: '\2766';
+  color: #d4af37;
+  font-size: 20px;
+}
+
+.template-luxe img {
+  max-width: 100%;
+  height: auto;
+  border: 4px solid #f5f3ef;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.template-luxe strong {
+  font-weight: 600;
+}
+
+.template-luxe em {
+  font-style: italic;
+  color: #8b7355;
+}

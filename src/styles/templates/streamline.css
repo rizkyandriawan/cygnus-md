@@ -1,0 +1,132 @@
+/* Streamline Template - Modern, clean lines with blue accent */
+
+.template-streamline {
+  font-family: 'Inter', 'SF Pro Display', system-ui, sans-serif;
+  font-size: 11pt;
+  line-height: 1.65;
+  color: #334155;
+}
+
+.template-streamline h1 {
+  font-size: 28pt;
+  font-weight: 300;
+  color: #0f172a;
+  margin-bottom: 0.6em;
+  margin-top: 0;
+  letter-spacing: -0.02em;
+}
+
+.template-streamline h2 {
+  font-size: 18pt;
+  font-weight: 500;
+  color: #0369a1;
+  margin-top: 1.8em;
+  margin-bottom: 0.5em;
+  letter-spacing: -0.01em;
+}
+
+.template-streamline h3 {
+  font-size: 14pt;
+  font-weight: 600;
+  color: #475569;
+  margin-top: 1.4em;
+  margin-bottom: 0.4em;
+}
+
+.template-streamline h4,
+.template-streamline h5,
+.template-streamline h6 {
+  font-size: 12pt;
+  font-weight: 600;
+  color: #64748b;
+  margin-top: 1.2em;
+  margin-bottom: 0.3em;
+}
+
+.template-streamline p {
+  margin-bottom: 1em;
+}
+
+.template-streamline a {
+  color: #0284c7;
+  text-decoration: none;
+  border-bottom: 1px solid #bae6fd;
+}
+
+.template-streamline a:hover {
+  border-bottom-color: #0284c7;
+}
+
+.template-streamline code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  background: #f1f5f9;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.88em;
+  color: #0369a1;
+}
+
+.template-streamline pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 1.25em;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.2em 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10pt;
+}
+
+.template-streamline pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.template-streamline blockquote {
+  border-left: 3px solid #0ea5e9;
+  padding-left: 1.2em;
+  margin: 1.2em 0;
+  color: #64748b;
+}
+
+.template-streamline ul,
+.template-streamline ol {
+  margin: 1em 0;
+  padding-left: 1.8em;
+}
+
+.template-streamline li {
+  margin-bottom: 0.35em;
+}
+
+.template-streamline table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2em 0;
+}
+
+.template-streamline th,
+.template-streamline td {
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0.6em 0.8em;
+  text-align: left;
+}
+
+.template-streamline th {
+  background: #f8fafc;
+  font-weight: 600;
+  color: #0369a1;
+}
+
+.template-streamline hr {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin: 2em 0;
+}
+
+.template-streamline img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}

@@ -1,0 +1,167 @@
+/* Geometric Template - Modern, bold shapes, vibrant */
+
+.template-geometric {
+  font-family: 'Poppins', 'Montserrat', 'Segoe UI', sans-serif;
+  font-size: 11pt;
+  line-height: 1.65;
+  color: #2d3748;
+}
+
+.template-geometric h1 {
+  font-size: 30pt;
+  font-weight: 800;
+  color: #1a202c;
+  margin-bottom: 0.5em;
+  margin-top: 0;
+  position: relative;
+  padding-left: 20px;
+}
+
+.template-geometric h1::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  background: linear-gradient(180deg, #667eea, #764ba2);
+  border-radius: 4px;
+}
+
+.template-geometric h2 {
+  font-size: 18pt;
+  font-weight: 700;
+  color: #553c9a;
+  margin-top: 1.6em;
+  margin-bottom: 0.5em;
+}
+
+.template-geometric h3 {
+  font-size: 14pt;
+  font-weight: 600;
+  color: #4a5568;
+  margin-top: 1.3em;
+  margin-bottom: 0.4em;
+}
+
+.template-geometric h4,
+.template-geometric h5,
+.template-geometric h6 {
+  font-size: 12pt;
+  font-weight: 600;
+  color: #718096;
+  margin-top: 1.1em;
+  margin-bottom: 0.3em;
+}
+
+.template-geometric p {
+  margin-bottom: 1em;
+}
+
+.template-geometric a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.template-geometric a:hover {
+  color: #764ba2;
+}
+
+.template-geometric code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  background: linear-gradient(135deg, #f0e7fe, #e9d5ff);
+  padding: 0.15em 0.45em;
+  border-radius: 4px;
+  font-size: 0.88em;
+  color: #553c9a;
+}
+
+.template-geometric pre {
+  background: linear-gradient(135deg, #1a202c, #2d3748);
+  color: #f7fafc;
+  padding: 1.2em;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin: 1.2em 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10pt;
+}
+
+.template-geometric pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.template-geometric blockquote {
+  background: linear-gradient(135deg, #f0e7fe 0%, #e9d5ff 100%);
+  border-radius: 0 12px 12px 0;
+  border-left: 5px solid #667eea;
+  padding: 1em 1.2em;
+  margin: 1.2em 0;
+  font-weight: 500;
+}
+
+.template-geometric ul,
+.template-geometric ol {
+  margin: 1em 0;
+  padding-left: 2em;
+}
+
+.template-geometric li {
+  margin-bottom: 0.4em;
+}
+
+.template-geometric li::marker {
+  color: #667eea;
+  font-weight: 700;
+}
+
+.template-geometric table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2em 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.template-geometric th,
+.template-geometric td {
+  padding: 0.6em 0.8em;
+  text-align: left;
+}
+
+.template-geometric th {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  font-weight: 600;
+}
+
+.template-geometric tr:nth-child(even) {
+  background: #f7f7fb;
+}
+
+.template-geometric td {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.template-geometric hr {
+  border: none;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  border-radius: 2px;
+  margin: 2em 0;
+}
+
+.template-geometric img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.2);
+}
+
+.template-geometric strong {
+  font-weight: 700;
+  color: #1a202c;
+}

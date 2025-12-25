@@ -1,0 +1,140 @@
+/* Coral Template - Warm coral/pink accent, friendly */
+
+.template-coral {
+  font-family: 'Nunito', 'Quicksand', 'Segoe UI', sans-serif;
+  font-size: 11pt;
+  line-height: 1.7;
+  color: #374151;
+}
+
+.template-coral h1 {
+  font-size: 28pt;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.6em;
+  margin-top: 0;
+}
+
+.template-coral h2 {
+  font-size: 18pt;
+  font-weight: 700;
+  color: #e11d48;
+  margin-top: 1.6em;
+  margin-bottom: 0.5em;
+}
+
+.template-coral h3 {
+  font-size: 14pt;
+  font-weight: 600;
+  color: #4b5563;
+  margin-top: 1.3em;
+  margin-bottom: 0.4em;
+}
+
+.template-coral h4,
+.template-coral h5,
+.template-coral h6 {
+  font-size: 12pt;
+  font-weight: 600;
+  color: #6b7280;
+  margin-top: 1.1em;
+  margin-bottom: 0.3em;
+}
+
+.template-coral p {
+  margin-bottom: 1em;
+}
+
+.template-coral a {
+  color: #e11d48;
+  text-decoration: none;
+}
+
+.template-coral a:hover {
+  text-decoration: underline;
+}
+
+.template-coral code {
+  font-family: 'Fira Code', 'Consolas', monospace;
+  background: #fdf2f8;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: #be185d;
+}
+
+.template-coral pre {
+  background: #1f2937;
+  color: #f9fafb;
+  padding: 1em;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin: 1em 0;
+  font-family: 'Fira Code', monospace;
+  font-size: 10pt;
+}
+
+.template-coral pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.template-coral blockquote {
+  background: #fdf2f8;
+  border-left: 4px solid #f472b6;
+  padding: 0.8em 1.2em;
+  margin: 1em 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.template-coral ul,
+.template-coral ol {
+  margin: 1em 0;
+  padding-left: 2em;
+}
+
+.template-coral li {
+  margin-bottom: 0.4em;
+}
+
+.template-coral li::marker {
+  color: #f472b6;
+}
+
+.template-coral table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+.template-coral th,
+.template-coral td {
+  border: 1px solid #fce7f3;
+  padding: 0.5em 0.75em;
+  text-align: left;
+}
+
+.template-coral th {
+  background: #fdf2f8;
+  font-weight: 600;
+  color: #be185d;
+}
+
+.template-coral hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #f472b6, transparent);
+  margin: 2em 0;
+}
+
+.template-coral img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.template-coral strong {
+  font-weight: 700;
+  color: #1f2937;
+}
