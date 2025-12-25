@@ -37,6 +37,7 @@
   "build": {
     "appId": "com.cygnus.md",
     "productName": "Cygnus MD",
+    "icon": "build/icon.png",
     "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
     "asar": true,
     "compression": "maximum",

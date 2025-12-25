@@ -32,6 +32,7 @@ const createWindow = () => {
     minWidth: 800,
     minHeight: 600,
     frame: false, // Frameless window
+    icon: path.join(__dirname, '../build/icon.png'),
     show: false, // Don't show until ready
     backgroundColor: '#1a202c', // Prevent white flash
     webPreferences: {
