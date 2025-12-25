@@ -16,7 +16,9 @@
     "@chakra-ui/react": "^3.30.0",
     "@emotion/react": "^11.14.0",
     "electron-squirrel-startup": "^1.0.1",
+    "katex": "^0.16.27",
     "marked": "^17.0.1",
+    "marked-katex-extension": "^5.1.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "zustand": "^5.0.9"

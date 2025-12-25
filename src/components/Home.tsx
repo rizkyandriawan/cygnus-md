@@ -32,14 +32,14 @@ export function Home() {
   };
 
   return (
-    <Center h="100%" bg="gray.100">
+    <Center h="100%" bg="#f5f0e5">
       <VStack gap={8} maxW="500px" w="100%" px={4}>
         {/* Logo/Title */}
         <VStack gap={2}>
-          <Text fontSize="4xl" fontWeight="bold" color="gray.700">
+          <Text fontSize="4xl" fontWeight="bold" color="#4c1d95">
             CygnusReader
           </Text>
-          <Text fontSize="md" color="gray.500">
+          <Text fontSize="md" color="#6b21a8">
             A beautiful Markdown reader
           </Text>
         </VStack>
@@ -48,13 +48,13 @@ export function Home() {
         <Box
           as="button"
           onClick={handleOpenFile}
-          bg="gray.800"
+          bg="#6b21a8"
           color="white"
           px={6}
           py={3}
           borderRadius="lg"
           fontWeight="medium"
-          _hover={{ bg: "gray.700" }}
+          _hover={{ bg: "#581c87" }}
           transition="background 0.2s"
         >
           <HStack gap={2}>
@@ -69,7 +69,7 @@ export function Home() {
         {/* Recent Files */}
         {recentFiles.length > 0 && (
           <VStack gap={3} w="100%" align="stretch">
-            <Text fontSize="sm" fontWeight="medium" color="gray.500" textTransform="uppercase">
+            <Text fontSize="sm" fontWeight="medium" color="#7c3aed" textTransform="uppercase">
               Recent Files
             </Text>
             <VStack gap={1} align="stretch">
@@ -84,14 +84,14 @@ export function Home() {
                   bg="white"
                   borderRadius="md"
                   border="1px solid"
-                  borderColor="gray.200"
-                  _hover={{ bg: "gray.50", borderColor: "gray.300" }}
+                  borderColor="#c4b5fd"
+                  _hover={{ bg: "#ede9fe", borderColor: "#7c3aed" }}
                   transition="all 0.15s"
                 >
-                  <Text fontWeight="medium" color="gray.700" truncate>
+                  <Text fontWeight="medium" color="#4c1d95" truncate>
                     {file.name}
                   </Text>
-                  <Text fontSize="xs" color="gray.400" truncate>
+                  <Text fontSize="xs" color="#7c3aed" truncate>
                     {file.path}
                   </Text>
                 </Box>
@@ -101,7 +101,7 @@ export function Home() {
         )}
 
         {/* Keyboard hint */}
-        <Text fontSize="xs" color="gray.400">
+        <Text fontSize="xs" color="#a78bfa">
           Tip: Use the toolbar button or drag & drop a file
         </Text>
       </VStack>

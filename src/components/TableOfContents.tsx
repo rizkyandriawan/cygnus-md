@@ -23,16 +23,16 @@ export function TableOfContents() {
       as="aside"
       w={isVisible ? "280px" : "0px"}
       minW={isVisible ? "280px" : "0px"}
-      bg="gray.50"
+      bg="#faf8f0"
       borderRight="1px solid"
-      borderColor="gray.200"
+      borderColor="#e5e0d5"
       h="100%"
       overflow="hidden"
       opacity={isVisible ? 1 : 0}
       transition="all 0.25s ease-in-out"
     >
       <Box p={4} w="280px">
-        <Text fontWeight="bold" fontSize="sm" color="gray.600" mb={3}>
+        <Text fontWeight="bold" fontSize="sm" color="#4c1d95" mb={3}>
           Table of Contents
         </Text>
 
@@ -51,10 +51,10 @@ export function TableOfContents() {
                   px={2}
                   pl={`${indent + 8}px`}
                   borderRadius="md"
-                  bg={isActive ? "blue.50" : "transparent"}
-                  color={isActive ? "blue.700" : "gray.700"}
+                  bg={isActive ? "#ede9fe" : "transparent"}
+                  color={isActive ? "#4c1d95" : "#581c87"}
                   fontSize="sm"
-                  _hover={{ bg: isActive ? "blue.50" : "gray.100" }}
+                  _hover={{ bg: isActive ? "#ede9fe" : "#f0ebe0" }}
                   transition="background 0.15s"
                   onClick={() => handleClick(item.page)}
                   cursor="pointer"
@@ -68,7 +68,7 @@ export function TableOfContents() {
                     {item.text}
                   </Text>
                   {item.page && (
-                    <Text fontSize="xs" color="gray.400" flexShrink={0}>
+                    <Text fontSize="xs" color="#7c3aed" flexShrink={0}>
                       {item.page}
                     </Text>
                   )}

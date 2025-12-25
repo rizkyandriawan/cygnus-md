@@ -1,8 +1,16 @@
 import { useEffect, useRef, useCallback, useState } from "react";
 import { Box, VStack } from "@chakra-ui/react";
 import { marked } from "marked";
+import markedKatex from "marked-katex-extension";
+import "katex/dist/katex.min.css";
 import { useAppStore, TocItem } from "../store/useAppStore";
 import { isElectron } from "../lib/environment";
+
+// Configure marked with KaTeX extension
+marked.use(markedKatex({
+  throwOnError: false,
+  displayMode: true,
+}));
 
 // Import style templates
 import "../styles/templates/default.css";
@@ -212,7 +220,7 @@ export function Reader() {
   }
 
   return (
-    <Box h="100%" overflow="auto" bg="gray.200" py={8}>
+    <Box h="100%" overflow="auto" bg="#f5f0e5" py={8}>
       {/* Hidden measure container */}
       <Box ref={measureRef} position="absolute" visibility="hidden" />
 

@@ -25,13 +25,13 @@ const styleOptions: { value: StyleTemplate; label: string; description: string }
   { value: "geometric", label: "Geometric", description: "Modern, vibrant shapes" },
 ];
 
-// Consistent button style for toolbar
+// Consistent button style for toolbar (classic Word style)
 const toolbarButtonStyle = {
   variant: "outline" as const,
-  color: "white",
-  borderColor: "gray.500",
-  bg: "transparent",
-  _hover: { bg: "gray.700", borderColor: "gray.400" },
+  color: "#4c1d95",
+  borderColor: "#c4b5fd",
+  bg: "white",
+  _hover: { bg: "#ede9fe", borderColor: "#7c3aed" },
 };
 
 export function Toolbar() {
@@ -83,13 +83,15 @@ export function Toolbar() {
   return (
     <Box
       as="header"
-      bg="gray.800"
-      color="white"
+      bg="#ece8f4"
+      color="#4c1d95"
       px={4}
       py={2}
       position="sticky"
       top={0}
       zIndex={100}
+      borderBottom="1px solid"
+      borderColor="#c4b5fd"
     >
       {/* Hidden file input for browser mode */}
       <input
@@ -122,7 +124,7 @@ export function Toolbar() {
             aria-label="Toggle TOC"
             size="sm"
             {...toolbarButtonStyle}
-            bg={tocVisible ? "gray.600" : "transparent"}
+            bg={tocVisible ? "#c4b5fd" : "white"}
             onClick={toggleToc}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -133,7 +135,7 @@ export function Toolbar() {
           </IconButton>
 
           {fileName && (
-            <Text fontSize="sm" color="gray.300" ml={2}>
+            <Text fontSize="sm" color="#6b21a8" ml={2}>
               {fileName}
             </Text>
           )}
@@ -144,21 +146,21 @@ export function Toolbar() {
           <NativeSelect.Field
             value={styleTemplate}
             onChange={(e) => setStyleTemplate(e.target.value as StyleTemplate)}
-            bg="gray.700"
-            color="white"
-            borderColor="gray.500"
-            _hover={{ borderColor: "gray.400" }}
+            bg="white"
+            color="#4c1d95"
+            borderColor="#c4b5fd"
+            _hover={{ borderColor: "#7c3aed" }}
             cursor="pointer"
             px={3}
             py={1}
           >
             {styleOptions.map((opt) => (
-              <option key={opt.value} value={opt.value} style={{ background: "#374151" }}>
+              <option key={opt.value} value={opt.value} style={{ background: "white" }}>
                 {opt.label}
               </option>
             ))}
           </NativeSelect.Field>
-          <NativeSelect.Indicator color="white" />
+          <NativeSelect.Indicator color="#6b21a8" />
         </NativeSelect.Root>
       </Flex>
     </Box>

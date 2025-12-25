@@ -77,7 +77,7 @@ export function BottomBar() {
   return (
     <Box
       as="footer"
-      bg="gray.800"
+      bg="#1e1b4b"
       color="white"
       px={4}
       py={2}
@@ -93,7 +93,7 @@ export function BottomBar() {
             size="sm"
             variant="ghost"
             color="white"
-            _hover={{ bg: "gray.700" }}
+            _hover={{ bg: "#3b327a" }}
             disabled={zoom <= 0.5}
             onClick={zoomOut}
           >
@@ -108,7 +108,7 @@ export function BottomBar() {
             size="sm"
             variant="ghost"
             color="white"
-            _hover={{ bg: "gray.700" }}
+            _hover={{ bg: "#3b327a" }}
             onClick={resetZoom}
             minW="60px"
           >
@@ -120,7 +120,7 @@ export function BottomBar() {
             size="sm"
             variant="ghost"
             color="white"
-            _hover={{ bg: "gray.700" }}
+            _hover={{ bg: "#3b327a" }}
             disabled={zoom >= 2}
             onClick={zoomIn}
           >
@@ -140,7 +140,7 @@ export function BottomBar() {
             size="sm"
             variant="ghost"
             color="white"
-            _hover={{ bg: "gray.700" }}
+            _hover={{ bg: "#3b327a" }}
             disabled={currentPage <= 1}
             onClick={() => goToPage(1)}
           >
@@ -155,7 +155,7 @@ export function BottomBar() {
             size="sm"
             variant="ghost"
             color="white"
-            _hover={{ bg: "gray.700" }}
+            _hover={{ bg: "#3b327a" }}
             disabled={currentPage <= 1}
             onClick={prevPage}
           >
@@ -164,7 +164,7 @@ export function BottomBar() {
             </svg>
           </IconButton>
 
-          <Text fontSize="sm" minW="100px" textAlign="center" userSelect="none">
+          <Text fontSize="sm" minW="100px" textAlign="center" userSelect="none" color="#fcd34d">
             {currentPage} / {totalPages}
           </Text>
 
@@ -173,7 +173,7 @@ export function BottomBar() {
             size="sm"
             variant="ghost"
             color="white"
-            _hover={{ bg: "gray.700" }}
+            _hover={{ bg: "#3b327a" }}
             disabled={currentPage >= totalPages}
             onClick={nextPage}
           >
@@ -187,7 +187,7 @@ export function BottomBar() {
             size="sm"
             variant="ghost"
             color="white"
-            _hover={{ bg: "gray.700" }}
+            _hover={{ bg: "#3b327a" }}
             disabled={currentPage >= totalPages}
             onClick={() => goToPage(totalPages)}
           >
@@ -199,7 +199,7 @@ export function BottomBar() {
         </HStack>
 
         {/* Right: Keyboard hints */}
-        <Text fontSize="xs" color="gray.500" minW="180px" textAlign="right">
+        <Text fontSize="xs" color="#a78bfa" minW="180px" textAlign="right">
           ← → Home End | Ctrl +/-/0
         </Text>
       </Flex>

@@ -34,7 +34,7 @@ const createWindow = () => {
     frame: false, // Frameless window
     icon: path.join(__dirname, '../build/icon.png'),
     show: false, // Don't show until ready
-    backgroundColor: '#1a202c', // Prevent white flash
+    backgroundColor: '#1e1b4b', // Prevent white flash - dark purple
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
       contextIsolation: true,

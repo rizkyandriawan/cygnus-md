@@ -25,9 +25,9 @@ export function TabBar() {
 
   return (
     <Flex
-      bg="gray.900"
+      bg="#1e1b4b"
       borderBottom="1px solid"
-      borderColor="gray.700"
+      borderColor="#3b327a"
       css={{ WebkitAppRegion: "drag" }}
     >
       <HStack
@@ -49,12 +49,12 @@ export function TabBar() {
               gap={1}
               px={4}
               py={2}
-              bg={isActive ? "gray.800" : "transparent"}
-              color={isActive ? "white" : "gray.400"}
+              bg={isActive ? "#2e1065" : "transparent"}
+              color={isActive ? "white" : "#a78bfa"}
               borderRight="1px solid"
-              borderColor="gray.700"
+              borderColor="#3b327a"
               cursor="pointer"
-              _hover={{ bg: isActive ? "gray.800" : "gray.850", color: "white" }}
+              _hover={{ bg: isActive ? "#2e1065" : "#252058", color: "white" }}
               transition="all 0.15s"
               onClick={() => switchTab(tab.id)}
               minW="120px"
@@ -87,9 +87,9 @@ export function TabBar() {
                   }}
                   p={1}
                   borderRadius="sm"
-                  _hover={{ bg: "gray.600" }}
-                  color="gray.500"
-                  _groupHover={{ color: "gray.300" }}
+                  _hover={{ bg: "#7c3aed" }}
+                  color="#8b5cf6"
+                  _groupHover={{ color: "#c4b5fd" }}
                 >
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <line x1="18" y1="6" x2="6" y2="18" />
@@ -109,8 +109,8 @@ export function TabBar() {
             as="button"
             px={4}
             py={2}
-            color="gray.400"
-            _hover={{ bg: "gray.700", color: "white" }}
+            color="#a78bfa"
+            _hover={{ bg: "#3b327a", color: "white" }}
             transition="all 0.15s"
             onClick={handleMinimize}
           >
@@ -122,8 +122,8 @@ export function TabBar() {
             as="button"
             px={4}
             py={2}
-            color="gray.400"
-            _hover={{ bg: "gray.700", color: "white" }}
+            color="#a78bfa"
+            _hover={{ bg: "#3b327a", color: "white" }}
             transition="all 0.15s"
             onClick={handleMaximize}
           >
@@ -135,8 +135,8 @@ export function TabBar() {
             as="button"
             px={4}
             py={2}
-            color="gray.400"
-            _hover={{ bg: "red.600", color: "white" }}
+            color="#a78bfa"
+            _hover={{ bg: "#dc2626", color: "white" }}
             transition="all 0.15s"
             onClick={handleClose}
           >
