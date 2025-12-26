@@ -2,6 +2,7 @@
   "name": "cygnus-md",
   "private": true,
   "version": "0.1.0",
+  "description": "A lightweight, paginated Markdown reader for desktop",
   "author": {
     "name": "Rizky",
     "email": "rizky.andriawan@gmail.com"
@@ -88,7 +89,8 @@
       "target": [
         "dmg"
       ],
-      "identity": null
+      "identity": null,
+      "icon": "build/icon.icns"
     },
     "nsis": {
       "oneClick": true,
