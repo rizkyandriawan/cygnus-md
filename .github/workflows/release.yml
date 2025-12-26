@@ -37,11 +37,11 @@ jobs:
 
       - name: Build Electron (Linux)
         if: matrix.platform == 'linux'
-        run: npx electron-builder --linux AppImage deb rpm
+        run: npx electron-builder --linux AppImage deb rpm --publish never
 
       - name: Build Electron (Windows)
         if: matrix.platform == 'win'
-        run: npx electron-builder --win nsis msi portable
+        run: npx electron-builder --win nsis msi portable --publish never
 
       - name: Generate macOS icon
         if: matrix.platform == 'mac'
@@ -61,7 +61,7 @@ jobs:
 
       - name: Build Electron (macOS)
         if: matrix.platform == 'mac'
-        run: npx electron-builder --mac dmg
+        run: npx electron-builder --mac dmg --publish never
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: false
 
