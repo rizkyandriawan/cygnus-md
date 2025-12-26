@@ -29,3 +29,7 @@ release/
 *.deb
 *.dmg
 *.exe
+
+# Environment variables
+.env
+.env.local

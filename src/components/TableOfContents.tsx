@@ -31,7 +31,7 @@ export function TableOfContents() {
       opacity={isVisible ? 1 : 0}
       transition="all 0.25s ease-in-out"
     >
-      <Box p={4} w="280px">
+      <Box p={4} w="280px" h="100%" overflowY="auto">
         <Text fontWeight="bold" fontSize="sm" color="#4c1d95" mb={3}>
           Table of Contents
         </Text>

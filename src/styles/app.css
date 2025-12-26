@@ -32,6 +32,19 @@ html {
   height: auto;
 }
 
+/* Code blocks: allow horizontal scroll for long lines */
+.md-content pre {
+  overflow-x: auto;
+  max-width: 100%;
+  padding-bottom: 8px; /* breathing room at bottom */
+}
+
+.md-content pre code {
+  white-space: pre;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
 /* GPU-accelerated page container */
 [data-page] {
   will-change: transform;

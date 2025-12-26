@@ -16,6 +16,15 @@ contextBridge.exposeInMainWorld('electronAPI', {
   close: () => ipcRenderer.invoke('window:close'),
   isMaximized: () => ipcRenderer.invoke('window:isMaximized'),
 
+  // Listen for file open from main process
+  onOpenFile: (callback) => ipcRenderer.on('open-file', (event, data) => callback(data)),
+
+  // Listen for toggle TOC from menu
+  onToggleToc: (callback) => ipcRenderer.on('toggle-toc', () => callback()),
+
+  // Listen for page navigation from menu
+  onNavigatePage: (callback) => ipcRenderer.on('navigate-page', (event, direction) => callback(direction)),
+
   // Check if running in Electron
   isElectron: true,
 });

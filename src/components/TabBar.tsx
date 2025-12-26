@@ -1,27 +1,13 @@
-import { Box, HStack, Text, Flex, Spacer } from "@chakra-ui/react";
+import { Box, HStack, Text, Flex } from "@chakra-ui/react";
 import { useAppStore } from "../store/useAppStore";
-import { isElectron } from "../lib/environment";
+import { api } from "../lib/api";
 
 export function TabBar() {
   const { tabs, activeTabId, switchTab, closeTab } = useAppStore();
 
-  const handleMinimize = () => {
-    if (isElectron() && (window as any).electronAPI?.minimize) {
-      (window as any).electronAPI.minimize();
-    }
-  };
-
-  const handleMaximize = () => {
-    if (isElectron() && (window as any).electronAPI?.maximize) {
-      (window as any).electronAPI.maximize();
-    }
-  };
-
-  const handleClose = () => {
-    if (isElectron() && (window as any).electronAPI?.close) {
-      (window as any).electronAPI.close();
-    }
-  };
+  const handleMinimize = () => api.minimize();
+  const handleMaximize = () => api.maximize();
+  const handleClose = () => api.close();
 
   return (
     <Flex
@@ -103,7 +89,7 @@ export function TabBar() {
       </HStack>
 
       {/* Window controls */}
-      {isElectron() && (
+      {api.isDesktop && (
         <HStack gap={0} css={{ WebkitAppRegion: "no-drag" }}>
           <Box
             as="button"

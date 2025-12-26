@@ -1,33 +1,29 @@
 import { Box, Center, Text, VStack, HStack } from "@chakra-ui/react";
 import { useAppStore } from "../store/useAppStore";
-import { isElectron } from "../lib/environment";
+import { api } from "../lib/api";
 
 export function Home() {
   const { recentFiles, setMarkdown } = useAppStore();
 
   const handleOpenRecent = async (filePath: string, fileName: string) => {
-    if (isElectron()) {
-      try {
-        const content = await (window as any).electronAPI.readFile(filePath);
-        if (content) {
-          setMarkdown(content, filePath, fileName);
-        }
-      } catch (err) {
-        console.error("Failed to open file:", err);
+    try {
+      const content = await api.readFile(filePath);
+      if (content) {
+        setMarkdown(content, filePath, fileName);
       }
+    } catch (err) {
+      console.error("Failed to open file:", err);
     }
   };
 
   const handleOpenFile = async () => {
-    if (isElectron()) {
-      try {
-        const result = await (window as any).electronAPI.openFile();
-        if (result) {
-          setMarkdown(result.content, result.filePath, result.fileName);
-        }
-      } catch (err) {
-        console.error("Failed to open file:", err);
+    try {
+      const result = await api.openFile();
+      if (result) {
+        setMarkdown(result.content, result.filePath, result.fileName);
       }
+    } catch (err) {
+      console.error("Failed to open file:", err);
     }
   };
 

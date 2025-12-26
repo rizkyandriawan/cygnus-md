@@ -8,13 +8,12 @@ import {
   NativeSelect,
 } from "@chakra-ui/react";
 import { useAppStore, StyleTemplate } from "../store/useAppStore";
-import { isElectron, isDesktop } from "../lib/environment";
+import { api } from "../lib/api";
 
 const styleOptions: { value: StyleTemplate; label: string; description: string }[] = [
   { value: "default", label: "Default", description: "Clean, readable sans-serif" },
   { value: "academic", label: "Academic", description: "Formal serif, paper-like" },
   { value: "minimal", label: "Minimal", description: "Simple, spacious layout" },
-  { value: "dark", label: "Dark", description: "Dark theme, easy on eyes" },
   { value: "streamline", label: "Streamline", description: "Modern, blue accent" },
   { value: "focus", label: "Focus", description: "Bold, high contrast" },
   { value: "swiss", label: "Swiss", description: "Clean, grid-based design" },
@@ -38,7 +37,8 @@ export function Toolbar() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const {
-    fileName,
+    tabs,
+    activeTabId,
     styleTemplate,
     tocVisible,
     setMarkdown,
@@ -46,10 +46,13 @@ export function Toolbar() {
     toggleToc,
   } = useAppStore();
 
-  // Electron file picker
-  const handleElectronOpen = async () => {
+  const currentTab = tabs.find((t) => t.id === activeTabId);
+  const fileName = currentTab?.type === 'document' ? currentTab.title : null;
+
+  // Desktop file picker (Electron or Tauri)
+  const handleDesktopOpen = async () => {
     try {
-      const result = await (window as any).electronAPI.openFile();
+      const result = await api.openFile();
       if (result) {
         setMarkdown(result.content, result.filePath, result.fileName);
       }
@@ -78,7 +81,7 @@ export function Toolbar() {
     e.target.value = "";
   };
 
-  const handleOpenFile = isElectron() ? handleElectronOpen : handleBrowserOpen;
+  const handleOpenFile = api.isDesktop ? handleDesktopOpen : handleBrowserOpen;
 
   return (
     <Box
@@ -106,7 +109,7 @@ export function Toolbar() {
         <HStack gap={2}>
           {/* Open/Upload file */}
           <IconButton
-            aria-label={isDesktop() ? "Open file" : "Upload file"}
+            aria-label={api.isDesktop ? "Open file" : "Upload file"}
             size="sm"
             {...toolbarButtonStyle}
             onClick={handleOpenFile}
