@@ -197,6 +197,14 @@ const createAppMenu = () => {
         },
         { type: 'separator' },
         {
+          label: 'Export to PDF',
+          accelerator: 'CmdOrCtrl+E',
+          click: () => {
+            if (mainWindow) mainWindow.webContents.send('export-pdf');
+          }
+        },
+        { type: 'separator' },
+        {
           label: 'Close Window',
           accelerator: 'CmdOrCtrl+W',
           click: () => {
@@ -669,4 +677,75 @@ ipcMain.handle('window:close', () => {
 
 ipcMain.handle('window:isMaximized', () => {
   return mainWindow ? mainWindow.isMaximized() : false;
+});
+
+// Export to PDF using hidden window
+ipcMain.handle('export:pdf', async (event, options = {}) => {
+  if (!mainWindow) return { success: false, error: 'No window' };
+
+  const { html, fileName = 'document.pdf' } = options;
+
+  if (!html) {
+    return { success: false, error: 'No HTML content provided' };
+  }
+
+  const result = await dialog.showSaveDialog(mainWindow, {
+    title: 'Export to PDF',
+    defaultPath: fileName,
+    filters: [{ name: 'PDF', extensions: ['pdf'] }],
+  });
+
+  if (result.canceled || !result.filePath) {
+    return { success: false, canceled: true };
+  }
+
+  let printWindow = null;
+
+  try {
+    logger.info('PDF export: HTML length:', html.length);
+
+    // Debug: save HTML to temp file
+    const debugPath = path.join(app.getPath('temp'), 'cygnus-pdf-debug.html');
+    fs.writeFileSync(debugPath, html, 'utf-8');
+    logger.info('PDF export: Debug HTML saved to:', debugPath);
+
+    // Create hidden window for PDF generation
+    printWindow = new BrowserWindow({
+      width: 794,  // A4 width at 96 DPI
+      height: 1123, // A4 height at 96 DPI
+      show: false,
+      webPreferences: {
+        nodeIntegration: false,
+        contextIsolation: true,
+      },
+    });
+
+    // Load HTML content - use base64 to avoid encoding issues
+    const base64HTML = Buffer.from(html, 'utf-8').toString('base64');
+    await printWindow.loadURL(`data:text/html;base64,${base64HTML}`);
+
+    logger.info('PDF export: HTML loaded in hidden window');
+
+    // Wait for content to render
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    // Generate PDF
+    const pdfData = await printWindow.webContents.printToPDF({
+      printBackground: true,
+      pageSize: 'A4',
+      margins: { top: 0, bottom: 0, left: 0, right: 0 },
+    });
+
+    fs.writeFileSync(result.filePath, pdfData);
+    logger.info('PDF exported:', result.filePath);
+
+    return { success: true, filePath: result.filePath };
+  } catch (error) {
+    logger.error('PDF export failed:', error.message);
+    return { success: false, error: error.message };
+  } finally {
+    if (printWindow && !printWindow.isDestroyed()) {
+      printWindow.close();
+    }
+  }
 });

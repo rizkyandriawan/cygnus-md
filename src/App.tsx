@@ -38,6 +38,14 @@ function App() {
         else if (direction === 'prev') prevPage();
       });
     }
+
+    // Export to PDF from menu (Ctrl+E)
+    if (electronApi.onExportPdf) {
+      electronApi.onExportPdf(() => {
+        // Dispatch event - Reader will handle getting HTML from folio
+        window.dispatchEvent(new CustomEvent('export-pdf-request'));
+      });
+    }
   }, [setMarkdown, toggleToc, nextPage, prevPage]);
 
   // Set window title

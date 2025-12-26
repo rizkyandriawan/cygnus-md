@@ -25,6 +25,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // Listen for page navigation from menu
   onNavigatePage: (callback) => ipcRenderer.on('navigate-page', (event, direction) => callback(direction)),
 
+  // Export to PDF
+  exportPdf: (options) => ipcRenderer.invoke('export:pdf', options),
+  onExportPdf: (callback) => ipcRenderer.on('export-pdf', () => callback()),
+
   // Check if running in Electron
   isElectron: true,
 });

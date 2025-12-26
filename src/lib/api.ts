@@ -189,6 +189,21 @@ export const api = {
     return false;
   },
 
+  async exportPdf(options?: { html?: string; fileName?: string }): Promise<{ success: boolean; filePath?: string; error?: string; canceled?: boolean }> {
+    if (isElectron) {
+      return (window as any).electronAPI.exportPdf(options);
+    }
+
+    // TODO: Tauri PDF export
+    return { success: false, error: 'Not supported' };
+  },
+
+  onExportPdf(callback: () => void): void {
+    if (isElectron) {
+      (window as any).electronAPI.onExportPdf(callback);
+    }
+  },
+
   isElectron,
   isTauri,
   isDesktop: isElectron || isTauri,

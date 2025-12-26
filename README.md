@@ -69,9 +69,25 @@ npm run electron:build
 - [React](https://react.dev/) - UI framework
 - [Chakra UI](https://chakra-ui.com/) - Component library
 - [Marked](https://marked.js.org/) - Markdown parser
+- [Folio](https://github.com/rizkyandriawan/foliojs) - A4 pagination engine
 - [KaTeX](https://katex.org/) - LaTeX rendering
 - [Zustand](https://zustand-demo.pmnd.rs/) - State management
 - [Vite](https://vitejs.dev/) - Build tool
+
+## Why Folio for Pagination?
+
+Cygnus MD uses [Folio](https://github.com/rizkyandriawan/foliojs), a custom web component for paginating HTML content into A4-sized pages. We chose to build a dedicated pagination library because:
+
+1. **No good alternatives exist** - Most "pagination" libraries are for data tables or infinite scroll, not document-style page breaks
+2. **CSS Paged Media is poorly supported** - The `@page` CSS spec exists but browser support is inconsistent and limited
+3. **Print-to-PDF is unreliable** - Browser print dialogs produce inconsistent results across platforms
+4. **We needed precise control** - Block-level splitting, orphan/widow handling, and page number tracking require custom logic
+
+Folio handles the complex task of:
+- Measuring content blocks and fitting them into fixed-height pages
+- Splitting oversized blocks (tables, code blocks, paragraphs) across pages
+- Tracking which headings land on which pages (for TOC page numbers)
+- Providing a clean API for navigation and export
 
 ## License
 
