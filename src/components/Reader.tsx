@@ -195,18 +195,20 @@ export function Reader() {
       const title = currentTab?.title || 'document';
       const pdfName = title.replace(/\.[^.]+$/, '.pdf');
 
-      const printHTML = folio.toPrintHTML({ title });
+      let printHTML = folio.toPrintHTML({ title });
 
-      // Debug: log HTML length and save to file for inspection
-      console.log('Print HTML length:', printHTML.length);
-      console.log('Print HTML preview:', printHTML.substring(0, 2000));
+      // Add template class to each page for styling
+      printHTML = printHTML.replace(
+        /class="folio-print-page"/g,
+        `class="folio-print-page template-${styleTemplate}"`
+      );
 
       await api.exportPdf({ html: printHTML, fileName: pdfName });
     };
 
     window.addEventListener('export-pdf-request', handleExportRequest);
     return () => window.removeEventListener('export-pdf-request', handleExportRequest);
-  }, [currentTab?.title]);
+  }, [currentTab?.title, styleTemplate]);
 
   // Handle internal link clicks
   const handleContentClick = useCallback((e: React.MouseEvent) => {

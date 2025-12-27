@@ -137,7 +137,7 @@ export function Toolbar() {
             </svg>
           </IconButton>
 
-          {/* Export PDF - temporarily hidden, CSS not captured properly yet
+          {/* Export PDF */}
           {api.isDesktop && (
             <IconButton
               aria-label="Export to PDF"
@@ -155,7 +155,6 @@ export function Toolbar() {
               </svg>
             </IconButton>
           )}
-          */}
 
           {fileName && (
             <Text fontSize="sm" color="#6b21a8" ml={2}>
