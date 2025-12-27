@@ -34,6 +34,7 @@ export const FolioPages = forwardRef<FolioPagesRef, FolioPagesProps>(
       // Create folio-pages element with content already inside
       const folio = document.createElement("folio-pages");
       folio.className = className || "";
+      folio.setAttribute("algorithm", "v2");
       if (pageHeight) folio.setAttribute("page-height", String(pageHeight));
       if (pageWidth) folio.setAttribute("page-width", String(pageWidth));
       if (padding) folio.setAttribute("padding", String(padding));

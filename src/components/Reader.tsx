@@ -126,21 +126,23 @@ export function Reader() {
   }, [toc, setToc]);
 
   // Handle pagination event from FolioPages
-  const handlePaginated = useCallback((detail: { totalPages: number; pages: any[] }) => {
+  const handlePaginated = useCallback((detail: { totalPages: number; pages?: any[] }) => {
     setTotalPages(detail.totalPages);
     setCurrentPage(1);
 
-    // Map TOC items to page numbers
-    if (toc.length > 0 && detail.pages) {
+    // Map TOC items to page numbers by querying DOM
+    if (toc.length > 0 && folioRef.current?.element) {
+      const folio = folioRef.current.element;
+      const pages = folio.querySelectorAll('.folio-page');
+
       const updatedToc = toc.map((item) => {
         let pageNum = 1;
-        for (let i = 0; i < detail.pages.length; i++) {
-          const page = detail.pages[i];
-          for (const frag of page.fragments) {
-            if (frag.block.element.id === item.id) {
-              pageNum = i + 1;
-              break;
-            }
+        // Find which page contains this heading
+        for (let i = 0; i < pages.length; i++) {
+          const heading = pages[i].querySelector(`#${CSS.escape(item.id)}`);
+          if (heading) {
+            pageNum = i + 1;
+            break;
           }
         }
         return { ...item, page: pageNum };
