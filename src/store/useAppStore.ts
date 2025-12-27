@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { v4 as uuidv4 } from 'uuid';
 
 // Update window title (Electron only)
 const updateWindowTitle = (fileName: string | null) => {
@@ -60,6 +61,11 @@ interface AppState {
   zoom: number;
   tocVisible: boolean;
 
+  // Search
+  searchQuery: string;
+  searchMatchIndex: number;
+  searchMatchCount: number;
+
   // Recent files
   recentFiles: RecentFile[];
 
@@ -88,6 +94,13 @@ interface AppState {
   resetZoom: () => void;
   toggleToc: () => void;
   addRecentFile: (file: RecentFile) => void;
+
+  // Search actions
+  setSearchQuery: (query: string) => void;
+  setSearchMatchCount: (count: number) => void;
+  nextMatch: () => void;
+  prevMatch: () => void;
+  clearSearch: () => void;
 }
 
 const MAX_RECENT_FILES = 10;
@@ -104,7 +117,7 @@ const createHomeTab = (): Tab => ({
   toc: [],
 });
 
-const generateTabId = () => `tab-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+const generateTabId = () => `tab-${uuidv4()}`;
 
 export const useAppStore = create<AppState>()(
   persist(
@@ -115,6 +128,9 @@ export const useAppStore = create<AppState>()(
       styleTemplate: 'default',
       zoom: 1,
       tocVisible: true,
+      searchQuery: '',
+      searchMatchIndex: 0,
+      searchMatchCount: 0,
       recentFiles: [],
 
       // Tab actions
@@ -269,6 +285,27 @@ export const useAppStore = create<AppState>()(
           const updated = [file, ...filtered].slice(0, MAX_RECENT_FILES);
           return { recentFiles: updated };
         }),
+
+      // Search actions
+      setSearchQuery: (query) => set({ searchQuery: query, searchMatchIndex: 0 }),
+
+      setSearchMatchCount: (count) => set({ searchMatchCount: count }),
+
+      nextMatch: () =>
+        set((state) => ({
+          searchMatchIndex: state.searchMatchCount > 0
+            ? (state.searchMatchIndex + 1) % state.searchMatchCount
+            : 0,
+        })),
+
+      prevMatch: () =>
+        set((state) => ({
+          searchMatchIndex: state.searchMatchCount > 0
+            ? (state.searchMatchIndex - 1 + state.searchMatchCount) % state.searchMatchCount
+            : 0,
+        })),
+
+      clearSearch: () => set({ searchQuery: '', searchMatchIndex: 0, searchMatchCount: 0 }),
     }),
     {
       name: 'cygnus-md-storage',

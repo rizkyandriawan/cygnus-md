@@ -54,9 +54,11 @@ export function Toolbar() {
   // Desktop file picker (Electron or Tauri)
   const handleDesktopOpen = async () => {
     try {
-      const result = await api.openFile();
-      if (result) {
-        setMarkdown(result.content, result.filePath, result.fileName);
+      const files = await api.openFile();
+      if (files && files.length > 0) {
+        for (const file of files) {
+          setMarkdown(file.content, file.filePath, file.fileName);
+        }
       }
     } catch (err) {
       console.error("Failed to open file:", err);
@@ -68,16 +70,28 @@ export function Toolbar() {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+    if (!fileList || fileList.length === 0) return;
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const content = event.target?.result as string;
-      setMarkdown(content, file.name, file.name);
+    const readFile = (file: File): Promise<{ content: string; filePath: string; fileName: string }> => {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          resolve({
+            content: event.target?.result as string,
+            filePath: file.name,
+            fileName: file.name,
+          });
+        };
+        reader.readAsText(file);
+      });
     };
-    reader.readAsText(file);
+
+    const files = await Promise.all(Array.from(fileList).map(readFile));
+    for (const file of files) {
+      setMarkdown(file.content, file.filePath, file.fileName);
+    }
 
     // Reset input so same file can be selected again
     e.target.value = "";
@@ -103,6 +117,7 @@ export function Toolbar() {
         ref={fileInputRef}
         type="file"
         accept=".md,.markdown,.txt"
+        multiple
         onChange={handleFileChange}
         style={{ display: "none" }}
       />

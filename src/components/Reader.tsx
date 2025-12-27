@@ -53,10 +53,13 @@ export function Reader() {
     activeTabId,
     styleTemplate,
     zoom,
+    searchQuery,
+    searchMatchIndex,
     setTotalPages,
     setToc,
     setCurrentPage,
     clearScrollTarget,
+    setSearchMatchCount,
   } = useAppStore();
 
   const currentTab = tabs.find((t) => t.id === activeTabId);
@@ -271,6 +274,79 @@ export function Reader() {
       }
     }
   }, [scrollToPage]);
+
+  // Search highlighting
+  useEffect(() => {
+    const folio = folioRef.current?.element;
+    if (!folio) return;
+
+    // Clear previous highlights
+    folio.querySelectorAll('mark.search-highlight').forEach((mark: Element) => {
+      const parent = mark.parentNode;
+      if (parent) {
+        parent.replaceChild(document.createTextNode(mark.textContent || ''), mark);
+        parent.normalize();
+      }
+    });
+
+    if (!searchQuery || searchQuery.length < 2) {
+      setSearchMatchCount(0);
+      return;
+    }
+
+    // Find and highlight matches
+    const walker = document.createTreeWalker(folio, NodeFilter.SHOW_TEXT, null);
+    const matches: { node: Text; index: number }[] = [];
+    const query = searchQuery.toLowerCase();
+
+    let node: Text | null;
+    while ((node = walker.nextNode() as Text)) {
+      const text = node.textContent?.toLowerCase() || '';
+      let idx = text.indexOf(query);
+      while (idx !== -1) {
+        matches.push({ node, index: idx });
+        idx = text.indexOf(query, idx + 1);
+      }
+    }
+
+    setSearchMatchCount(matches.length);
+
+    // Apply highlights
+    const highlightedNodes: Element[] = [];
+    matches.forEach(({ node, index }, i) => {
+      const text = node.textContent || '';
+      const before = text.slice(0, index);
+      const match = text.slice(index, index + searchQuery.length);
+      const after = text.slice(index + searchQuery.length);
+
+      const mark = document.createElement('mark');
+      mark.className = 'search-highlight';
+      mark.textContent = match;
+      mark.style.backgroundColor = i === searchMatchIndex ? '#fbbf24' : '#fef08a';
+      mark.style.color = '#1f2937';
+      mark.style.padding = '0 2px';
+      mark.style.borderRadius = '2px';
+      if (i === searchMatchIndex) {
+        mark.dataset.current = 'true';
+      }
+
+      const parent = node.parentNode;
+      if (parent) {
+        const frag = document.createDocumentFragment();
+        if (before) frag.appendChild(document.createTextNode(before));
+        frag.appendChild(mark);
+        if (after) frag.appendChild(document.createTextNode(after));
+        parent.replaceChild(frag, node);
+        highlightedNodes.push(mark);
+      }
+    });
+
+    // Scroll to current match
+    const currentMark = folio.querySelector('mark[data-current="true"]');
+    if (currentMark) {
+      currentMark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [searchQuery, searchMatchIndex, html, setSearchMatchCount]);
 
   if (!markdown) {
     return null;

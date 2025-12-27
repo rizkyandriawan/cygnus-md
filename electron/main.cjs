@@ -608,10 +608,10 @@ app.on('window-all-closed', () => {
 
 // IPC Handlers
 
-// Open file dialog
+// Open file dialog (supports multiple files)
 ipcMain.handle('dialog:openFile', async () => {
   const result = await dialog.showOpenDialog(mainWindow, {
-    properties: ['openFile'],
+    properties: ['openFile', 'multiSelections'],
     filters: [
       { name: 'Markdown', extensions: ['md', 'markdown', 'txt'] },
     ],
@@ -621,11 +621,14 @@ ipcMain.handle('dialog:openFile', async () => {
     return null;
   }
 
-  const filePath = result.filePaths[0];
-  const content = fs.readFileSync(filePath, 'utf-8');
-  const fileName = path.basename(filePath);
+  // Return array of files
+  const files = result.filePaths.map(filePath => ({
+    filePath,
+    content: fs.readFileSync(filePath, 'utf-8'),
+    fileName: path.basename(filePath),
+  }));
 
-  return { filePath, content, fileName };
+  return files;
 });
 
 // Read file

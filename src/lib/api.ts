@@ -19,7 +19,8 @@ async function loadTauriModules() {
 }
 
 export const api = {
-  async openFile(): Promise<{ filePath: string; content: string; fileName: string } | null> {
+  // Opens file dialog, returns array of files (supports multi-select)
+  async openFile(): Promise<{ filePath: string; content: string; fileName: string }[] | null> {
     console.log('[api] openFile called, isElectron:', isElectron, 'isTauri:', isTauri);
 
     if (isElectron) {
@@ -32,18 +33,25 @@ export const api = {
         await loadTauriModules();
         console.log('[api] Opening dialog...');
         const selected = await tauriDialog!.open({
-          multiple: false,
+          multiple: true,
           filters: [{ name: 'Markdown', extensions: ['md', 'markdown', 'txt'] }],
         });
         console.log('[api] Dialog result:', selected);
 
-        if (!selected || typeof selected !== 'string') return null;
+        if (!selected) return null;
 
-        console.log('[api] Reading file...');
-        const content = await tauriFs!.readTextFile(selected);
-        const fileName = selected.split('/').pop() || 'Untitled';
+        // Handle both single and multiple selection
+        const paths = Array.isArray(selected) ? selected : [selected];
+        if (paths.length === 0) return null;
 
-        return { filePath: selected, content, fileName };
+        console.log('[api] Reading files...');
+        const files = await Promise.all(paths.map(async (filePath) => {
+          const content = await tauriFs!.readTextFile(filePath);
+          const fileName = filePath.split('/').pop() || 'Untitled';
+          return { filePath, content, fileName };
+        }));
+
+        return files;
       } catch (err) {
         console.error('[api] Tauri openFile error:', err);
         return null;

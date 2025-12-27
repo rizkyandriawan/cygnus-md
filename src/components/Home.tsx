@@ -18,9 +18,11 @@ export function Home() {
 
   const handleOpenFile = async () => {
     try {
-      const result = await api.openFile();
-      if (result) {
-        setMarkdown(result.content, result.filePath, result.fileName);
+      const files = await api.openFile();
+      if (files && files.length > 0) {
+        for (const file of files) {
+          setMarkdown(file.content, file.filePath, file.fileName);
+        }
       }
     } catch (err) {
       console.error("Failed to open file:", err);

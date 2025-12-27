@@ -18,11 +18,11 @@ Most existing options are either:
 
 | Platform | Download |
 |----------|----------|
-| Linux (AppImage) | [cygnus-md-0.2.2-linux-x86_64.AppImage](https://github.com/rizkyandriawan/cygnus-md/releases/download/v0.2.2/cygnus-md-0.2.2-linux-x86_64.AppImage) |
-| Linux (deb) | [cygnus-md-0.2.2-linux-amd64.deb](https://github.com/rizkyandriawan/cygnus-md/releases/download/v0.2.2/cygnus-md-0.2.2-linux-amd64.deb) |
-| Linux (rpm) | [cygnus-md-0.2.2-linux-x86_64.rpm](https://github.com/rizkyandriawan/cygnus-md/releases/download/v0.2.2/cygnus-md-0.2.2-linux-x86_64.rpm) |
-| Windows (MSI) | [cygnus-md-0.2.2-win-x64.msi](https://github.com/rizkyandriawan/cygnus-md/releases/download/v0.2.2/cygnus-md-0.2.2-win-x64.msi) |
-| Windows (Portable) | [cygnus-md-0.2.2-win-x64.exe](https://github.com/rizkyandriawan/cygnus-md/releases/download/v0.2.2/cygnus-md-0.2.2-win-x64.exe) |
+| Linux (AppImage) | [cygnus-md-0.2.3-linux-x86_64.AppImage](https://github.com/rizkyandriawan/cygnus-md/releases/download/v0.2.3/cygnus-md-0.2.3-linux-x86_64.AppImage) |
+| Linux (deb) | [cygnus-md-0.2.3-linux-amd64.deb](https://github.com/rizkyandriawan/cygnus-md/releases/download/v0.2.3/cygnus-md-0.2.3-linux-amd64.deb) |
+| Linux (rpm) | [cygnus-md-0.2.3-linux-x86_64.rpm](https://github.com/rizkyandriawan/cygnus-md/releases/download/v0.2.3/cygnus-md-0.2.3-linux-x86_64.rpm) |
+| Windows (MSI) | [cygnus-md-0.2.3-win-x64.msi](https://github.com/rizkyandriawan/cygnus-md/releases/download/v0.2.3/cygnus-md-0.2.3-win-x64.msi) |
+| Windows (Portable) | [cygnus-md-0.2.3-win-x64.exe](https://github.com/rizkyandriawan/cygnus-md/releases/download/v0.2.3/cygnus-md-0.2.3-win-x64.exe) |
 
 ## Features
 
