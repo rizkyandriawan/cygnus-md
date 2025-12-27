@@ -1,7 +1,7 @@
 {
   "name": "cygnus-md",
   "private": true,
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A lightweight, paginated Markdown reader for desktop",
   "author": {
     "name": "Rizky",
@@ -31,6 +31,7 @@
     "dotenv": "^17.2.3",
     "electron-squirrel-startup": "^1.0.1",
     "electron-updater": "^6.6.2",
+    "jszip": "^3.10.1",
     "katex": "^0.16.27",
     "marked": "^17.0.1",
     "marked-katex-extension": "^5.1.6",

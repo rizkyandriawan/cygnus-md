@@ -198,6 +198,31 @@ export const api = {
     return { success: false, error: 'Not supported' };
   },
 
+  async exportDocx(options: { data: ArrayBuffer; fileName?: string }): Promise<{ success: boolean; filePath?: string; error?: string; canceled?: boolean }> {
+    if (isElectron) {
+      // Convert ArrayBuffer to base64 for IPC (chunked to avoid stack overflow)
+      const bytes = new Uint8Array(options.data);
+      let binary = '';
+      const chunkSize = 8192;
+      for (let i = 0; i < bytes.length; i += chunkSize) {
+        const chunk = bytes.subarray(i, Math.min(i + chunkSize, bytes.length));
+        binary += String.fromCharCode.apply(null, chunk as unknown as number[]);
+      }
+      const base64 = btoa(binary);
+      return (window as any).electronAPI.exportDocx({ data: base64, fileName: options.fileName });
+    }
+
+    // Fallback: browser download
+    const blob = new Blob([options.data], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = options.fileName || 'document.docx';
+    a.click();
+    URL.revokeObjectURL(url);
+    return { success: true };
+  },
+
   onExportPdf(callback: () => void): void {
     if (isElectron) {
       (window as any).electronAPI.onExportPdf(callback);

@@ -6,6 +6,7 @@ import "katex/dist/katex.min.css";
 import { useAppStore, TocItem } from "../store/useAppStore";
 import { api } from "../lib/api";
 import { FolioPages, FolioPagesRef } from "./FolioPages";
+import { htmlToDocx } from "../lib/docx";
 
 // Configure marked with KaTeX extension
 marked.use(markedKatex({
@@ -208,6 +209,39 @@ export function Reader() {
 
     window.addEventListener('export-pdf-request', handleExportRequest);
     return () => window.removeEventListener('export-pdf-request', handleExportRequest);
+  }, [currentTab?.title, styleTemplate]);
+
+  // Handle DOCX export request
+  useEffect(() => {
+    const handleDocxExport = async () => {
+      const folio = folioRef.current?.element as any;
+      if (!folio || typeof folio.toPrintHTML !== 'function') {
+        console.error('Folio element not ready or toPrintHTML not available');
+        return;
+      }
+
+      const title = currentTab?.title || 'document';
+      const docxName = title.replace(/\.[^.]+$/, '.docx');
+
+      let printHTML = folio.toPrintHTML({ title });
+
+      // Add template class to each page for styling
+      printHTML = printHTML.replace(
+        /class="folio-print-page"/g,
+        `class="folio-print-page template-${styleTemplate}"`
+      );
+
+      try {
+        const blob = await htmlToDocx(printHTML, title, styleTemplate);
+        const arrayBuffer = await blob.arrayBuffer();
+        await api.exportDocx({ data: arrayBuffer, fileName: docxName });
+      } catch (err) {
+        console.error('DOCX export failed:', err);
+      }
+    };
+
+    window.addEventListener('export-docx-request', handleDocxExport);
+    return () => window.removeEventListener('export-docx-request', handleDocxExport);
   }, [currentTab?.title, styleTemplate]);
 
   // Handle internal link clicks

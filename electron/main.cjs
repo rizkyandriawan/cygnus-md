@@ -749,3 +749,34 @@ ipcMain.handle('export:pdf', async (event, options = {}) => {
     }
   }
 });
+
+// Export to DOCX
+ipcMain.handle('export:docx', async (event, options = {}) => {
+  const { data, fileName = 'document.docx' } = options;
+
+  const result = await dialog.showSaveDialog(BrowserWindow.getFocusedWindow(), {
+    title: 'Export to DOCX',
+    defaultPath: fileName,
+    filters: [{ name: 'Word Document', extensions: ['docx'] }],
+  });
+
+  if (result.canceled || !result.filePath) {
+    return { success: false, canceled: true };
+  }
+
+  try {
+    // Convert base64 back to buffer
+    const buffer = Buffer.from(data, 'base64');
+    fs.writeFileSync(result.filePath, buffer);
+    logger.info('DOCX exported:', result.filePath);
+    return { success: true, filePath: result.filePath };
+  } catch (error) {
+    logger.error('DOCX export failed:', error.message);
+    return { success: false, error: error.message };
+  }
+});
+
+// Renderer logging
+ipcMain.on('renderer:log', (event, { level, message, args }) => {
+  logger[level] ? logger[level](`[Renderer] ${message}`, ...args) : logger.info(`[Renderer] ${message}`, ...args);
+});

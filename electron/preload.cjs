@@ -29,6 +29,12 @@ contextBridge.exposeInMainWorld('electronAPI', {
   exportPdf: (options) => ipcRenderer.invoke('export:pdf', options),
   onExportPdf: (callback) => ipcRenderer.on('export-pdf', () => callback()),
 
+  // Export to DOCX
+  exportDocx: (options) => ipcRenderer.invoke('export:docx', options),
+
+  // Logging to main process
+  log: (level, message, ...args) => ipcRenderer.send('renderer:log', { level, message, args }),
+
   // Check if running in Electron
   isElectron: true,
 });

@@ -6,6 +6,8 @@ import {
   IconButton,
   Text,
   NativeSelect,
+  Menu,
+  Portal,
 } from "@chakra-ui/react";
 import { useAppStore, StyleTemplate } from "../store/useAppStore";
 import { api } from "../lib/api";
@@ -137,23 +139,72 @@ export function Toolbar() {
             </svg>
           </IconButton>
 
-          {/* Export PDF */}
+          {/* Export Menu */}
           {api.isDesktop && (
-            <IconButton
-              aria-label="Export to PDF"
-              size="sm"
-              {...toolbarButtonStyle}
-              onClick={() => {
-                // Dispatch event - Reader will handle getting HTML from folio
-                window.dispatchEvent(new CustomEvent('export-pdf-request'));
-              }}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="6 9 6 2 18 2 18 9" />
-                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
-                <rect x="6" y="14" width="12" height="8" />
-              </svg>
-            </IconButton>
+            <Menu.Root>
+              <Menu.Trigger asChild>
+                <IconButton
+                  aria-label="Export"
+                  size="sm"
+                  {...toolbarButtonStyle}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                </IconButton>
+              </Menu.Trigger>
+              <Portal>
+                <Menu.Positioner>
+                  <Menu.Content
+                    bg="white"
+                    borderRadius="md"
+                    boxShadow="lg"
+                    border="1px solid"
+                    borderColor="gray.200"
+                    py={1}
+                    minW="160px"
+                  >
+                    <Menu.Item
+                      value="pdf"
+                      onClick={() => window.dispatchEvent(new CustomEvent('export-pdf-request'))}
+                      px={3}
+                      py={2}
+                      cursor="pointer"
+                      _hover={{ bg: "purple.50" }}
+                      display="flex"
+                      alignItems="center"
+                      gap={2}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                      </svg>
+                      <Text fontSize="sm">Export as PDF</Text>
+                    </Menu.Item>
+                    <Menu.Item
+                      value="docx"
+                      onClick={() => window.dispatchEvent(new CustomEvent('export-docx-request'))}
+                      px={3}
+                      py={2}
+                      cursor="pointer"
+                      _hover={{ bg: "purple.50" }}
+                      display="flex"
+                      alignItems="center"
+                      gap={2}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <text x="7" y="17" fontSize="7" fill="currentColor" stroke="none" fontWeight="bold">W</text>
+                      </svg>
+                      <Text fontSize="sm">Export as DOCX</Text>
+                    </Menu.Item>
+                  </Menu.Content>
+                </Menu.Positioner>
+              </Portal>
+            </Menu.Root>
           )}
 
           {fileName && (
