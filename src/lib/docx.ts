@@ -413,7 +413,7 @@ function processUnorderedList(el: HTMLElement, images: DocxImage[]): string {
   return xml;
 }
 
-function processOrderedList(el: HTMLElement, images: DocxImage[]): string {
+function processOrderedList(el: HTMLElement, _images: DocxImage[]): string {
   let xml = '';
   const items = el.querySelectorAll(':scope > li');
   items.forEach((li, idx) => {
@@ -422,7 +422,7 @@ function processOrderedList(el: HTMLElement, images: DocxImage[]): string {
   return xml;
 }
 
-function processTable(el: HTMLElement, images: DocxImage[]): string {
+function processTable(el: HTMLElement, _images: DocxImage[]): string {
   const t = currentTemplate;
   const rows = el.querySelectorAll('tr');
   if (rows.length === 0) return '';
@@ -529,7 +529,7 @@ function generateDocumentRels(images: DocxImage[]): string {
 </Relationships>`;
 }
 
-function generateDocument(content: string, title: string): string {
+function generateDocument(content: string, _title: string): string {
   return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
             xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"
