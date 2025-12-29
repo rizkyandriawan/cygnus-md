@@ -29,8 +29,13 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install dependencies (Unix)
+        if: matrix.platform != 'win'
         run: npm ci
+
+      - name: Install dependencies (Windows)
+        if: matrix.platform == 'win'
+        run: npm install
 
       - name: Build
         run: npm run build
