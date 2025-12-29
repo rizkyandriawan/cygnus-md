@@ -1,0 +1,149 @@
+/* Academic Template - Paper-like, formal serif typography */
+
+.template-academic {
+  font-family: 'Georgia', 'Times New Roman', 'Noto Serif', serif;
+  font-size: 12pt;
+  line-height: 1.8;
+  color: #1a1a1a;
+}
+
+.template-academic h1 {
+  font-size: 22pt;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1em;
+  margin-top: 0;
+  color: #000;
+}
+
+.template-academic h2 {
+  font-size: 16pt;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-top: 2em;
+  margin-bottom: 0.8em;
+  border-bottom: 1px solid #666;
+  padding-bottom: 0.2em;
+}
+
+.template-academic h3 {
+  font-size: 13pt;
+  font-weight: 700;
+  color: #333;
+  margin-top: 1.5em;
+  margin-bottom: 0.6em;
+  font-style: italic;
+}
+
+.template-academic h4,
+.template-academic h5,
+.template-academic h6 {
+  font-size: 12pt;
+  font-weight: 600;
+  color: #333;
+  margin-top: 1.2em;
+  margin-bottom: 0.4em;
+}
+
+.template-academic p {
+  margin-bottom: 1em;
+  text-align: justify;
+  text-indent: 1.5em;
+}
+
+.template-academic p:first-of-type {
+  text-indent: 0;
+}
+
+.template-academic a {
+  color: #1e40af;
+  text-decoration: none;
+}
+
+.template-academic a:hover {
+  text-decoration: underline;
+}
+
+.template-academic code {
+  font-family: 'Courier New', 'Courier', monospace;
+  background: #f5f5f5;
+  padding: 0.1em 0.3em;
+  border: 1px solid #ddd;
+  font-size: 0.9em;
+}
+
+.template-academic pre {
+  background: #f8f8f8;
+  border: 1px solid #ccc;
+  padding: 1em;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  font-family: 'Courier New', monospace;
+  font-size: 10pt;
+}
+
+.template-academic pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.template-academic blockquote {
+  margin: 1.5em 2em;
+  padding: 0.5em 1em;
+  border-left: 3px solid #666;
+  font-style: italic;
+  color: #444;
+}
+
+.template-academic ul,
+.template-academic ol {
+  margin: 1em 0;
+  padding-left: 2.5em;
+}
+
+.template-academic li {
+  margin-bottom: 0.5em;
+}
+
+.template-academic table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+}
+
+.template-academic th,
+.template-academic td {
+  border: 1px solid #333;
+  padding: 0.6em 0.8em;
+  text-align: left;
+}
+
+.template-academic th {
+  background: #f0f0f0;
+  font-weight: 700;
+}
+
+.template-academic caption {
+  font-style: italic;
+  margin-bottom: 0.5em;
+  text-align: left;
+}
+
+.template-academic hr {
+  border: none;
+  border-top: 1px solid #999;
+  margin: 2.5em 0;
+}
+
+.template-academic img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5em auto;
+}
+
+.template-academic sup {
+  font-size: 0.7em;
+  vertical-align: super;
+}

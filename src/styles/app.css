@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none; /* Prevent overscroll bounce */
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Smooth scroll for TOC navigation */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Content container with GPU optimization */
+.md-content {
+  width: 100%;
+  will-change: transform;
+  contain: layout paint;
+}
+
+/* Ensure images don't overflow */
+.md-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Code blocks: allow horizontal scroll for long lines */
+.md-content pre {
+  overflow-x: auto;
+  max-width: 100%;
+  padding-bottom: 8px; /* breathing room at bottom */
+}
+
+.md-content pre code {
+  white-space: pre;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+/* Diagram containers (Mermaid, PlantUML) */
+.md-content .diagram-container {
+  margin: 1.5em 0;
+  text-align: center;
+  overflow-x: auto;
+}
+
+.md-content .diagram-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.md-content .diagram-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* GPU-accelerated page container */
+[data-page] {
+  will-change: transform;
+  contain: layout paint size;
+}
+
+/* ========== PRINT STYLES ========== */
+@media print {
+  /* Hide all UI elements */
+  header,
+  [data-print-hide="true"] {
+    display: none !important;
+  }
+
+  /* Reset body/html for print */
+  html, body, #root {
+    height: auto !important;
+    overflow: visible !important;
+    background: white !important;
+  }
+
+  /* Hide TOC sidebar */
+  [data-toc-sidebar] {
+    display: none !important;
+  }
+
+  /* Hide bottom bar */
+  [data-bottom-bar] {
+    display: none !important;
+  }
+
+  /* Hide tab bar */
+  [data-tab-bar] {
+    display: none !important;
+  }
+
+  /* Pages container - no transform, full width */
+  .folio-pages {
+    padding: 0 !important;
+    background: none !important;
+    gap: 0 !important;
+  }
+
+  /* Individual pages */
+  .folio-page {
+    margin: 0 !important;
+    box-shadow: none !important;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  /* Ensure content fills page */
+  .folio-page:last-child {
+    page-break-after: auto;
+  }
+}

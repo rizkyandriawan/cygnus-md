@@ -1,0 +1,142 @@
+/* Focus Template - Bold, high contrast, impactful */
+
+.template-focus {
+  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 11pt;
+  line-height: 1.7;
+  color: #212121;
+}
+
+.template-focus h1 {
+  font-size: 32pt;
+  font-weight: 900;
+  color: #000;
+  margin-bottom: 0.5em;
+  margin-top: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.template-focus h2 {
+  font-size: 20pt;
+  font-weight: 700;
+  color: #d32f2f;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.template-focus h3 {
+  font-size: 14pt;
+  font-weight: 700;
+  color: #424242;
+  margin-top: 1.4em;
+  margin-bottom: 0.5em;
+}
+
+.template-focus h4,
+.template-focus h5,
+.template-focus h6 {
+  font-size: 12pt;
+  font-weight: 700;
+  color: #616161;
+  margin-top: 1.2em;
+  margin-bottom: 0.4em;
+}
+
+.template-focus p {
+  margin-bottom: 1em;
+}
+
+.template-focus a {
+  color: #d32f2f;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.template-focus a:hover {
+  text-decoration: underline;
+}
+
+.template-focus code {
+  font-family: 'Source Code Pro', 'Consolas', monospace;
+  background: #263238;
+  color: #fff;
+  padding: 0.2em 0.5em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.template-focus pre {
+  background: #263238;
+  color: #eceff1;
+  padding: 1.2em;
+  border-radius: 0;
+  overflow-x: auto;
+  margin: 1.2em 0;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 10pt;
+  border-left: 4px solid #d32f2f;
+}
+
+.template-focus pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.template-focus blockquote {
+  background: #fafafa;
+  border-left: 5px solid #d32f2f;
+  padding: 1em 1.2em;
+  margin: 1.2em 0;
+  font-weight: 500;
+}
+
+.template-focus ul,
+.template-focus ol {
+  margin: 1em 0;
+  padding-left: 2em;
+}
+
+.template-focus li {
+  margin-bottom: 0.4em;
+}
+
+.template-focus table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2em 0;
+}
+
+.template-focus th,
+.template-focus td {
+  border: 2px solid #212121;
+  padding: 0.6em 0.8em;
+  text-align: left;
+}
+
+.template-focus th {
+  background: #212121;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.template-focus hr {
+  border: none;
+  border-top: 3px solid #212121;
+  margin: 2em 0;
+}
+
+.template-focus img {
+  max-width: 100%;
+  height: auto;
+}
+
+.template-focus strong {
+  font-weight: 700;
+  color: #000;
+}

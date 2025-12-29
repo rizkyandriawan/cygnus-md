@@ -1,0 +1,153 @@
+/* Default Template - Clean, readable sans-serif */
+
+.template-default {
+  font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11pt;
+  line-height: 1.7;
+  color: #333;
+}
+
+.template-default h1 {
+  font-size: 24pt;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.8em;
+  margin-top: 0;
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid #3b82f6;
+}
+
+.template-default h2 {
+  font-size: 18pt;
+  font-weight: 600;
+  color: #2563eb;
+  margin-top: 1.5em;
+  margin-bottom: 0.6em;
+}
+
+.template-default h3 {
+  font-size: 14pt;
+  font-weight: 600;
+  color: #374151;
+  margin-top: 1.3em;
+  margin-bottom: 0.5em;
+}
+
+.template-default h4,
+.template-default h5,
+.template-default h6 {
+  font-size: 12pt;
+  font-weight: 600;
+  color: #4b5563;
+  margin-top: 1.2em;
+  margin-bottom: 0.4em;
+}
+
+.template-default p {
+  margin-bottom: 1em;
+}
+
+.template-default a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.template-default a:hover {
+  text-decoration: underline;
+}
+
+.template-default code {
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  background: #f3f4f6;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.template-default pre {
+  background: #1f2937;
+  color: #f3f4f6;
+  padding: 1em;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1em 0;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 10pt;
+}
+
+.template-default pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.template-default blockquote {
+  border-left: 4px solid #3b82f6;
+  padding-left: 1em;
+  margin: 1em 0;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.template-default ul,
+.template-default ol {
+  margin: 1em 0;
+  padding-left: 2em;
+}
+
+.template-default li {
+  margin-bottom: 0.4em;
+}
+
+.template-default table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+.template-default th,
+.template-default td {
+  border: 1px solid #d1d5db;
+  padding: 0.5em 0.75em;
+  text-align: left;
+}
+
+.template-default th {
+  background: #f3f4f6;
+  font-weight: 600;
+}
+
+.template-default hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 2em 0;
+}
+
+.template-default img {
+  max-width: 100%;
+  height: auto;
+}
+
+.template-default strong {
+  font-weight: 600;
+}
+
+.template-default em {
+  font-style: italic;
+}
+
+/* Diagram containers */
+.template-default .diagram-container {
+  margin: 1.5em 0;
+  text-align: center;
+}
+
+.template-default .diagram-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.template-default .diagram-container img {
+  max-width: 100%;
+  height: auto;
+}

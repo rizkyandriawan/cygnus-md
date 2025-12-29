@@ -1,0 +1,161 @@
+/* Paperback Template - Warm, book-like, sepia tones */
+
+.template-paperback {
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+  font-size: 12pt;
+  line-height: 1.75;
+  color: #3d3229;
+  background: #faf6f0;
+}
+
+.template-paperback h1 {
+  font-size: 26pt;
+  font-weight: 400;
+  color: #2c2419;
+  margin-bottom: 0.8em;
+  margin-top: 0;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+
+.template-paperback h2 {
+  font-size: 18pt;
+  font-weight: 400;
+  color: #5c4a32;
+  margin-top: 1.8em;
+  margin-bottom: 0.6em;
+  font-style: italic;
+}
+
+.template-paperback h3 {
+  font-size: 14pt;
+  font-weight: 700;
+  color: #4a3c28;
+  margin-top: 1.4em;
+  margin-bottom: 0.5em;
+}
+
+.template-paperback h4,
+.template-paperback h5,
+.template-paperback h6 {
+  font-size: 12pt;
+  font-weight: 600;
+  color: #5c4a32;
+  margin-top: 1.2em;
+  margin-bottom: 0.4em;
+}
+
+.template-paperback p {
+  margin-bottom: 1em;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.template-paperback a {
+  color: #8b5a2b;
+  text-decoration: none;
+  border-bottom: 1px dotted #8b5a2b;
+}
+
+.template-paperback a:hover {
+  border-bottom-style: solid;
+}
+
+.template-paperback code {
+  font-family: 'Courier New', Courier, monospace;
+  background: #f0e6d6;
+  padding: 0.1em 0.35em;
+  font-size: 0.9em;
+  color: #5c4a32;
+}
+
+.template-paperback pre {
+  background: #f5ebe0;
+  padding: 1em;
+  overflow-x: auto;
+  margin: 1.2em 0;
+  font-family: 'Courier New', monospace;
+  font-size: 10pt;
+  border: 1px solid #d4c4a8;
+}
+
+.template-paperback pre code {
+  background: none;
+  padding: 0;
+}
+
+.template-paperback blockquote {
+  margin: 1.5em 2em;
+  padding: 0;
+  font-style: italic;
+  color: #5c4a32;
+  border-left: none;
+  position: relative;
+}
+
+.template-paperback blockquote::before {
+  content: '\201C';
+  font-size: 3em;
+  color: #c4b496;
+  position: absolute;
+  left: -0.6em;
+  top: -0.2em;
+}
+
+.template-paperback ul,
+.template-paperback ol {
+  margin: 1em 0;
+  padding-left: 2em;
+}
+
+.template-paperback li {
+  margin-bottom: 0.4em;
+}
+
+.template-paperback table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2em 0;
+}
+
+.template-paperback th,
+.template-paperback td {
+  border: 1px solid #c4b496;
+  padding: 0.5em 0.7em;
+  text-align: left;
+}
+
+.template-paperback th {
+  background: #f0e6d6;
+  font-weight: 600;
+  font-variant: small-caps;
+}
+
+.template-paperback hr {
+  border: none;
+  text-align: center;
+  margin: 2em 0;
+}
+
+.template-paperback hr::before {
+  content: '* * *';
+  color: #8b7355;
+  letter-spacing: 0.5em;
+}
+
+.template-paperback img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #c4b496;
+  padding: 4px;
+  background: #fff;
+}
+
+.template-paperback em {
+  font-style: italic;
+}
+
+.template-paperback strong {
+  font-weight: 700;
+  color: #2c2419;
+}

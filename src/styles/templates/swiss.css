@@ -1,0 +1,130 @@
+/* Swiss Template - Clean, grid-based, Helvetica-inspired */
+
+.template-swiss {
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 11pt;
+  line-height: 1.5;
+  color: #1a1a1a;
+}
+
+.template-swiss h1 {
+  font-size: 36pt;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 0.4em;
+  margin-top: 0;
+  line-height: 1.1;
+}
+
+.template-swiss h2 {
+  font-size: 18pt;
+  font-weight: 700;
+  color: #000;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+  padding-top: 0.5em;
+  border-top: 1px solid #000;
+}
+
+.template-swiss h3 {
+  font-size: 13pt;
+  font-weight: 700;
+  color: #333;
+  margin-top: 1.5em;
+  margin-bottom: 0.4em;
+}
+
+.template-swiss h4,
+.template-swiss h5,
+.template-swiss h6 {
+  font-size: 11pt;
+  font-weight: 700;
+  color: #555;
+  margin-top: 1.2em;
+  margin-bottom: 0.3em;
+}
+
+.template-swiss p {
+  margin-bottom: 1em;
+}
+
+.template-swiss a {
+  color: #0066cc;
+  text-decoration: underline;
+}
+
+.template-swiss a:hover {
+  color: #003d7a;
+}
+
+.template-swiss code {
+  font-family: 'SF Mono', 'Monaco', monospace;
+  background: #f5f5f5;
+  padding: 0.1em 0.35em;
+  font-size: 0.9em;
+}
+
+.template-swiss pre {
+  background: #f5f5f5;
+  padding: 1em;
+  overflow-x: auto;
+  margin: 1em 0;
+  font-family: 'SF Mono', monospace;
+  font-size: 9pt;
+  border: 1px solid #ddd;
+}
+
+.template-swiss pre code {
+  background: none;
+  padding: 0;
+}
+
+.template-swiss blockquote {
+  margin: 1em 0;
+  padding-left: 1em;
+  border-left: 2px solid #000;
+  color: #555;
+}
+
+.template-swiss ul,
+.template-swiss ol {
+  margin: 1em 0;
+  padding-left: 1.5em;
+}
+
+.template-swiss li {
+  margin-bottom: 0.3em;
+}
+
+.template-swiss table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+.template-swiss th,
+.template-swiss td {
+  border-bottom: 1px solid #000;
+  padding: 0.5em 0.6em;
+  text-align: left;
+}
+
+.template-swiss th {
+  font-weight: 700;
+  border-bottom-width: 2px;
+}
+
+.template-swiss hr {
+  border: none;
+  border-top: 1px solid #000;
+  margin: 2em 0;
+}
+
+.template-swiss img {
+  max-width: 100%;
+  height: auto;
+}
+
+.template-swiss strong {
+  font-weight: 700;
+}

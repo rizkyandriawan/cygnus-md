@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Cygnus MD</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      -webkit-app-region: drag;
+      user-select: none;
+    }
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 12px;
+      opacity: 0.7;
+      letter-spacing: 1px;
+      margin-bottom: 30px;
+    }
+    .loader {
+      width: 120px;
+      height: 3px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .loader-bar {
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(90deg, #c4b5fd, #a78bfa);
+      border-radius: 3px;
+      animation: loading 1.2s ease-in-out infinite;
+    }
+    @keyframes loading {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(350%); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.9; }
+    }
+  </style>
+</head>
+<body>
+  <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <!-- Swan/Cygnus shape -->
+    <ellipse cx="50" cy="55" rx="35" ry="25" fill="#a78bfa"/>
+    <ellipse cx="50" cy="55" rx="28" ry="18" fill="#c4b5fd"/>
+    <!-- Neck -->
+    <path d="M35 45 Q20 30 25 15 Q30 5 40 10 Q35 20 38 30 Q40 40 42 48" fill="#a78bfa" stroke="#8b5cf6" stroke-width="2"/>
+    <!-- Head -->
+    <circle cx="32" cy="12" r="8" fill="#a78bfa"/>
+    <!-- Beak -->
+    <path d="M24 12 L18 10 L24 14 Z" fill="#fcd34d"/>
+    <!-- Eye -->
+    <circle cx="30" cy="10" r="2" fill="#1e1b4b"/>
+    <!-- Wing detail -->
+    <path d="M55 45 Q70 40 80 50 Q70 55 55 55 Z" fill="#8b5cf6" opacity="0.6"/>
+  </svg>
+  <div class="title">CYGNUS MD</div>
+  <div class="subtitle">MARKDOWN READER</div>
+  <div class="loader">
+    <div class="loader-bar"></div>
+  </div>
+</body>
+</html>
