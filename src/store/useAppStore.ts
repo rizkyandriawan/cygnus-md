@@ -15,7 +15,7 @@ export type StyleTemplate =
   | 'default'
   | 'academic'
   | 'minimal'
-  | 'dark'
+  | 'compact'
   | 'streamline'
   | 'focus'
   | 'swiss'

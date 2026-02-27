@@ -155,6 +155,18 @@ const templateStyles: Record<string, TemplateStyle> = {
     tableBorder: 'E2E8F0',
     tableHeaderBg: 'F7FAFC',
   },
+  compact: {
+    body: { font: 'Calibri', size: 20, color: '333333', lineHeight: 240 },
+    h1: { size: 52, color: '1A1A1A', bold: true, italic: false, center: true },
+    h2: { size: 24, color: '2B547E', bold: true, italic: false },
+    h3: { size: 21, color: '1A1A1A', bold: true, italic: false },
+    h4: { size: 20, color: '444444', bold: true },
+    quote: { color: '555555', borderColor: '2B547E', italic: true },
+    code: { font: 'Consolas', bgColor: 'F8F9FA', textColor: '333333' },
+    link: { color: '2B547E' },
+    tableBorder: 'E5E7EB',
+    tableHeaderBg: 'FFFFFF',
+  },
 };
 
 let currentTemplate: TemplateStyle = templateStyles.default;

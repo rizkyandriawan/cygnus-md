@@ -27,6 +27,7 @@ import "../styles/templates/coral.css";
 import "../styles/templates/slate.css";
 import "../styles/templates/luxe.css";
 import "../styles/templates/geometric.css";
+import "../styles/templates/compact.css";
 
 // A4 dimensions at 96 DPI (screen)
 const PAGE_WIDTH = 794; // 210mm

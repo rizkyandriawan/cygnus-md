@@ -1,0 +1,178 @@
+/* Compact Template - Dense, CV/resume-friendly layout */
+
+.template-compact {
+  font-family: 'Calibri', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 10pt;
+  line-height: 1.4;
+  color: #333;
+  text-align: justify;
+}
+
+.template-compact h1 {
+  font-size: 26pt;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.2em;
+  margin-top: 0;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.template-compact h1 + p {
+  text-align: center;
+  color: #555;
+  font-size: 9.5pt;
+  margin-bottom: 0.6em;
+}
+
+.template-compact h2 {
+  font-size: 12pt;
+  font-weight: 700;
+  color: #2b547e;
+  margin-top: 1em;
+  margin-bottom: 0.4em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding-bottom: 0.2em;
+  border-bottom: 1.5px solid #2b547e;
+}
+
+.template-compact h3 {
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-top: 0.8em;
+  margin-bottom: 0.1em;
+}
+
+.template-compact h4 {
+  font-size: 10pt;
+  font-weight: 700;
+  color: #444;
+  margin-top: 0.6em;
+  margin-bottom: 0.1em;
+}
+
+.template-compact h5,
+.template-compact h6 {
+  font-size: 10pt;
+  font-weight: 600;
+  color: #555;
+  margin-top: 0.5em;
+  margin-bottom: 0.1em;
+}
+
+.template-compact p {
+  margin-bottom: 0.4em;
+}
+
+.template-compact em {
+  font-style: italic;
+  color: #555;
+}
+
+.template-compact a {
+  color: #2b547e;
+  text-decoration: none;
+}
+
+.template-compact a:hover {
+  text-decoration: underline;
+}
+
+.template-compact code {
+  font-family: 'Consolas', 'Courier New', monospace;
+  background: #f3f4f6;
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.template-compact pre {
+  background: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  padding: 0.6em 0.8em;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 0.5em 0;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 9pt;
+  line-height: 1.35;
+}
+
+.template-compact pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.template-compact blockquote {
+  border-left: 3px solid #2b547e;
+  padding-left: 0.8em;
+  margin: 0.5em 0;
+  color: #555;
+  font-style: italic;
+}
+
+.template-compact ul,
+.template-compact ol {
+  margin: 0.3em 0;
+  padding-left: 1.6em;
+}
+
+.template-compact li {
+  margin-bottom: 0.15em;
+}
+
+.template-compact li > ul,
+.template-compact li > ol {
+  margin: 0.1em 0;
+}
+
+.template-compact table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.4em 0;
+}
+
+.template-compact th,
+.template-compact td {
+  border: none;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.25em 0.5em;
+  text-align: left;
+  vertical-align: top;
+  font-size: 10pt;
+}
+
+.template-compact th {
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.template-compact hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 0.6em 0;
+}
+
+.template-compact img {
+  max-width: 100%;
+  height: auto;
+}
+
+.template-compact strong {
+  font-weight: 700;
+}
+
+/* Diagram containers */
+.template-compact .diagram-container {
+  margin: 0.5em 0;
+  text-align: center;
+}
+
+.template-compact .diagram-container svg,
+.template-compact .diagram-container img {
+  max-width: 100%;
+  height: auto;
+}

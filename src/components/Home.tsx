@@ -131,7 +131,7 @@ export function Home() {
         <Text fontSize="xs" color="#a78bfa" textAlign="center">
           A lightweight, paginated Markdown & EPUB reader
           <br />
-          v0.2.5
+          v0.2.6
         </Text>
       </VStack>
     </Center>

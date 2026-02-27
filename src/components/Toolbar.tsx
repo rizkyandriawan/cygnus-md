@@ -25,6 +25,7 @@ const styleOptions: { value: StyleTemplate; label: string; description: string }
   { value: "slate", label: "Slate", description: "Professional gray/blue" },
   { value: "luxe", label: "Luxe", description: "Elegant serif, gold accents" },
   { value: "geometric", label: "Geometric", description: "Modern, vibrant shapes" },
+  { value: "compact", label: "Compact", description: "Dense, CV/resume-friendly" },
 ];
 
 // Consistent button style for toolbar (classic Word style)
