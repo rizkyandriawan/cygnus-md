@@ -39,6 +39,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // Logging to main process
   log: (level, message, ...args) => ipcRenderer.send('renderer:log', { level, message, args }),
 
+  // Headless export (CLI mode)
+  onHeadlessExport: (callback) => ipcRenderer.on('headless-export', (event, data) => callback(data)),
+  headlessExportDone: (result) => ipcRenderer.send('headless-export-done', result),
+
   // Check if running in Electron
   isElectron: true,
 });

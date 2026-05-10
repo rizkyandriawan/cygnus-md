@@ -40,6 +40,33 @@ Most existing options are either:
 - **LaTeX Support** - Render math equations with KaTeX
 - **Diagram Support** - Render PlantUML and Mermaid diagrams
 
+## Headless CLI Export
+
+In addition to the GUI, Cygnus MD ships a **headless export mode** for converting Markdown to PDF / DOCX from the command line. Useful for build pipelines, batch document generation, or integrating with other tools (e.g., `lucius` MCP).
+
+```bash
+# Installed binary (Linux/Windows/macOS):
+cygnus-md export <input.md> <output.{pdf|docx}> [--style STYLE] [--format FMT]
+
+# From source / dev:
+./bin/cygnus-md-export <input.md> <output.{pdf|docx}> [--style STYLE]
+# or:
+npm run export:cli -- <input.md> <output.{pdf|docx}> [--style STYLE]
+```
+
+**Format** is auto-detected from the output file extension. Override with `--format pdf|docx` if needed.
+
+**Styles**: `default`, `academic`, `minimal`, `streamline`, `focus`, `swiss`, `paperback`, `coral`, `slate`, `luxe`, `geometric`. Defaults to `default`.
+
+**Examples**:
+```bash
+cygnus-md export notes.md notes.pdf --style academic
+cygnus-md export README.md README.docx --style swiss
+cygnus-md export report.md report.pdf --style luxe
+```
+
+The CLI reuses the same rendering pipeline as the GUI (folio pagination + KaTeX math + Mermaid diagrams + 11 templates), so output matches what you see in the app.
+
 ## Keyboard Shortcuts
 
 | Key | Action |

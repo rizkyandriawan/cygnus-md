@@ -61,9 +61,8 @@ export const api = {
           const isEpub = fileName.toLowerCase().endsWith('.epub');
 
           if (isEpub) {
-            // Read EPUB as binary
+            // Read binary files (EPUB) as base64
             const bytes = await tauriFs!.readFile(filePath);
-            // Convert to base64
             let binary = '';
             const chunkSize = 8192;
             for (let i = 0; i < bytes.length; i += chunkSize) {
@@ -266,7 +265,7 @@ export const api = {
     return false;
   },
 
-  async exportPdf(options?: { html?: string; fileName?: string }): Promise<{ success: boolean; filePath?: string; error?: string; canceled?: boolean }> {
+  async exportPdf(options?: { html?: string; fileName?: string; outputPath?: string }): Promise<{ success: boolean; filePath?: string; error?: string; canceled?: boolean }> {
     if (isElectron) {
       return (window as any).electronAPI.exportPdf(options);
     }
@@ -275,7 +274,7 @@ export const api = {
     return { success: false, error: 'Not supported' };
   },
 
-  async exportDocx(options: { data: ArrayBuffer; fileName?: string }): Promise<{ success: boolean; filePath?: string; error?: string; canceled?: boolean }> {
+  async exportDocx(options: { data: ArrayBuffer; fileName?: string; outputPath?: string }): Promise<{ success: boolean; filePath?: string; error?: string; canceled?: boolean }> {
     if (isElectron) {
       // Convert ArrayBuffer to base64 for IPC (chunked to avoid stack overflow)
       const bytes = new Uint8Array(options.data);
@@ -286,7 +285,7 @@ export const api = {
         binary += String.fromCharCode.apply(null, chunk as unknown as number[]);
       }
       const base64 = btoa(binary);
-      return (window as any).electronAPI.exportDocx({ data: base64, fileName: options.fileName });
+      return (window as any).electronAPI.exportDocx({ data: base64, fileName: options.fileName, outputPath: options.outputPath });
     }
 
     // Fallback: browser download
@@ -310,6 +309,7 @@ export const api = {
     html: string;
     fileName?: string;
     assets?: { name: string; data: string }[]; // base64 data URLs
+    outputPath?: string;
   }): Promise<{ success: boolean; filePath?: string; error?: string; canceled?: boolean }> {
     if (isElectron) {
       return (window as any).electronAPI.exportHtml(options);

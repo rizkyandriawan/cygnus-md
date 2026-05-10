@@ -416,13 +416,67 @@ const isSupportedFile = (filePath) => {
   return SUPPORTED_EXTENSIONS.includes(ext);
 };
 
+// ========== HEADLESS CLI MODE ==========
+// Usage: cygnus-md export <input> <output> [--style STYLE] [--format pdf|docx|html]
+function parseHeadlessOpts() {
+  const argv = process.argv;
+  const exportIdx = argv.indexOf('export');
+  if (exportIdx < 0) return null;
+
+  const rest = argv.slice(exportIdx + 1);
+  const positional = [];
+  const flags = {};
+  for (let i = 0; i < rest.length; i++) {
+    const a = rest[i];
+    if (a.startsWith('--')) {
+      const key = a.slice(2);
+      const next = rest[i + 1];
+      if (next && !next.startsWith('--')) {
+        flags[key] = next;
+        i++;
+      } else {
+        flags[key] = true;
+      }
+    } else {
+      positional.push(a);
+    }
+  }
+
+  if (positional.length < 2) {
+    console.error('Usage: cygnus-md export <input> <output> [--style STYLE] [--format pdf|docx|html]');
+    console.error('Styles: default, academic, minimal, streamline, focus, swiss, paperback, coral, slate, luxe, geometric');
+    process.exit(2);
+  }
+
+  const input = path.resolve(positional[0]);
+  const output = path.resolve(positional[1]);
+  const format = String(flags.format || path.extname(output).slice(1)).toLowerCase();
+  const style = String(flags.style || 'default');
+
+  if (!['pdf', 'docx', 'html'].includes(format)) {
+    console.error(`Unsupported format: ${format}. Supported: pdf, docx, html`);
+    process.exit(2);
+  }
+
+  if (!fs.existsSync(input)) {
+    console.error(`Input file not found: ${input}`);
+    process.exit(2);
+  }
+
+  return { input, output, format, style };
+}
+
+const headlessOpts = parseHeadlessOpts();
+
 // ========== SINGLE INSTANCE LOCK ==========
-const gotTheLock = app.requestSingleInstanceLock();
+// Headless CLI mode bypasses the single-instance lock so multiple exports can
+// run alongside (or in parallel with) the GUI without colliding.
+const gotTheLock = headlessOpts ? true : app.requestSingleInstanceLock();
 
 if (!gotTheLock) {
   // Another instance is already running, quit this one
   app.quit();
-} else {
+} else if (!headlessOpts) {
   // Handle second instance trying to open
   app.on('second-instance', (event, commandLine, workingDirectory) => {
     // Focus the main window if it exists
@@ -629,7 +683,71 @@ protocol.registerSchemesAsPrivileged([
   { scheme: 'local-file', privileges: { bypassCSP: true, stream: true, supportFetchAPI: true } }
 ]);
 
-app.whenReady().then(() => {
+async function runHeadlessExport(opts) {
+  const { input, output, format, style } = opts;
+
+  const fileName = path.basename(input);
+  const isEpub = fileName.toLowerCase().endsWith('.epub');
+  let content;
+  let contentType;
+  if (isEpub) {
+    content = fs.readFileSync(input).toString('base64');
+    contentType = 'epub';
+  } else {
+    content = fs.readFileSync(input, 'utf-8');
+    contentType = 'markdown';
+  }
+
+  const win = new BrowserWindow({
+    width: 1200,
+    height: 800,
+    show: false,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.cjs'),
+      contextIsolation: true,
+      nodeIntegration: false,
+      sandbox: true,
+      backgroundThrottling: false,
+    },
+  });
+
+  // Load the app (so the renderer with React + folio is alive)
+  if (process.env.VITE_DEV_SERVER_URL) {
+    await win.loadURL(process.env.VITE_DEV_SERVER_URL);
+  } else {
+    await win.loadFile(path.join(app.getAppPath(), 'dist/index.html'));
+  }
+
+  // Give the renderer a beat to mount its IPC listeners
+  await new Promise(r => setTimeout(r, 800));
+
+  // Trigger the headless export from the renderer side
+  win.webContents.send('headless-export', {
+    input,
+    output,
+    format,
+    style,
+    fileName,
+    content,
+    contentType,
+  });
+
+  // Wait for the renderer to post the result (or timeout)
+  return await new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      try { if (!win.isDestroyed()) win.close(); } catch {}
+      reject(new Error('Headless export timed out (90s)'));
+    }, 90000);
+
+    ipcMain.once('headless-export-done', (event, result) => {
+      clearTimeout(timeout);
+      try { if (!win.isDestroyed()) win.close(); } catch {}
+      resolve(result || { success: false, error: 'No result' });
+    });
+  });
+}
+
+app.whenReady().then(async () => {
   logger.info('App ready, version:', app.getVersion());
 
   // Handle local file protocol
@@ -637,6 +755,24 @@ app.whenReady().then(() => {
     const filePath = decodeURIComponent(request.url.replace('local-file://', ''));
     return net.fetch(url.pathToFileURL(filePath).toString());
   });
+
+  // Headless CLI mode: run the export, exit. No splash, no menu, no main window.
+  if (headlessOpts) {
+    try {
+      const result = await runHeadlessExport(headlessOpts);
+      if (result && result.success) {
+        console.log(`Exported: ${result.filePath || headlessOpts.output}`);
+        app.exit(0);
+      } else {
+        console.error(`Export failed: ${result && result.error ? result.error : 'unknown error'}`);
+        app.exit(1);
+      }
+    } catch (err) {
+      console.error(`Export error: ${err && err.message ? err.message : err}`);
+      app.exit(1);
+    }
+    return;
+  }
 
   // Create application menu with shortcuts
   createAppMenu();
@@ -675,9 +811,10 @@ ipcMain.handle('dialog:openFile', async () => {
   const result = await dialog.showOpenDialog(mainWindow, {
     properties: ['openFile', 'multiSelections'],
     filters: [
-      { name: 'Documents', extensions: ['md', 'markdown', 'txt', 'epub'] },
+      { name: 'Documents', extensions: ['md', 'markdown', 'txt', 'epub', 'pdf'] },
       { name: 'Markdown', extensions: ['md', 'markdown', 'txt'] },
       { name: 'EPUB', extensions: ['epub'] },
+      { name: 'PDF', extensions: ['pdf'] },
     ],
   });
 
@@ -689,15 +826,16 @@ ipcMain.handle('dialog:openFile', async () => {
   const files = result.filePaths.map(filePath => {
     const fileName = path.basename(filePath);
     const isEpub = fileName.toLowerCase().endsWith('.epub');
+    const isPdf = fileName.toLowerCase().endsWith('.pdf');
 
-    if (isEpub) {
-      // Read EPUB as base64-encoded binary
+    if (isEpub || isPdf) {
+      // Read binary files as base64-encoded
       const buffer = fs.readFileSync(filePath);
       return {
         filePath,
         content: buffer.toString('base64'),
         fileName,
-        type: 'epub',
+        type: isPdf ? 'pdf' : 'epub',
       };
     } else {
       // Read text files as UTF-8
@@ -733,14 +871,15 @@ ipcMain.handle('fs:openFilePath', async (event, filePath) => {
 
     const fileName = path.basename(filePath);
     const isEpub = fileName.toLowerCase().endsWith('.epub');
+    const isPdf = fileName.toLowerCase().endsWith('.pdf');
 
-    if (isEpub) {
+    if (isEpub || isPdf) {
       const buffer = fs.readFileSync(filePath);
       return {
         filePath,
         content: buffer.toString('base64'),
         fileName,
-        type: 'epub',
+        type: isPdf ? 'pdf' : 'epub',
       };
     } else {
       return {
@@ -798,22 +937,24 @@ ipcMain.handle('window:isMaximized', () => {
 
 // Export to PDF using hidden window
 ipcMain.handle('export:pdf', async (event, options = {}) => {
-  if (!mainWindow) return { success: false, error: 'No window' };
-
-  const { html, fileName = 'document.pdf' } = options;
+  const { html, fileName = 'document.pdf', outputPath } = options;
 
   if (!html) {
     return { success: false, error: 'No HTML content provided' };
   }
 
-  const result = await dialog.showSaveDialog(mainWindow, {
-    title: 'Export to PDF',
-    defaultPath: fileName,
-    filters: [{ name: 'PDF', extensions: ['pdf'] }],
-  });
-
-  if (result.canceled || !result.filePath) {
-    return { success: false, canceled: true };
+  let filePath = outputPath;
+  if (!filePath) {
+    if (!mainWindow) return { success: false, error: 'No window' };
+    const result = await dialog.showSaveDialog(mainWindow, {
+      title: 'Export to PDF',
+      defaultPath: fileName,
+      filters: [{ name: 'PDF', extensions: ['pdf'] }],
+    });
+    if (result.canceled || !result.filePath) {
+      return { success: false, canceled: true };
+    }
+    filePath = result.filePath;
   }
 
   let printWindow = null;
@@ -852,13 +993,13 @@ ipcMain.handle('export:pdf', async (event, options = {}) => {
       margins: { top: 0, bottom: 0, left: 0, right: 0 },
     });
 
-    fs.writeFileSync(result.filePath, pdfData);
-    logger.info('PDF exported:', result.filePath);
+    fs.writeFileSync(filePath, pdfData);
+    logger.info('PDF exported:', filePath);
 
     // Clean up temp file
     try { fs.unlinkSync(tempPath); } catch {}
 
-    return { success: true, filePath: result.filePath };
+    return { success: true, filePath };
   } catch (error) {
     logger.error('PDF export failed:', error.message);
     return { success: false, error: error.message };
@@ -871,24 +1012,27 @@ ipcMain.handle('export:pdf', async (event, options = {}) => {
 
 // Export to DOCX
 ipcMain.handle('export:docx', async (event, options = {}) => {
-  const { data, fileName = 'document.docx' } = options;
+  const { data, fileName = 'document.docx', outputPath } = options;
 
-  const result = await dialog.showSaveDialog(BrowserWindow.getFocusedWindow(), {
-    title: 'Export to DOCX',
-    defaultPath: fileName,
-    filters: [{ name: 'Word Document', extensions: ['docx'] }],
-  });
-
-  if (result.canceled || !result.filePath) {
-    return { success: false, canceled: true };
+  let filePath = outputPath;
+  if (!filePath) {
+    const result = await dialog.showSaveDialog(BrowserWindow.getFocusedWindow(), {
+      title: 'Export to DOCX',
+      defaultPath: fileName,
+      filters: [{ name: 'Word Document', extensions: ['docx'] }],
+    });
+    if (result.canceled || !result.filePath) {
+      return { success: false, canceled: true };
+    }
+    filePath = result.filePath;
   }
 
   try {
     // Convert base64 back to buffer
     const buffer = Buffer.from(data, 'base64');
-    fs.writeFileSync(result.filePath, buffer);
-    logger.info('DOCX exported:', result.filePath);
-    return { success: true, filePath: result.filePath };
+    fs.writeFileSync(filePath, buffer);
+    logger.info('DOCX exported:', filePath);
+    return { success: true, filePath };
   } catch (error) {
     logger.error('DOCX export failed:', error.message);
     return { success: false, error: error.message };
@@ -897,20 +1041,23 @@ ipcMain.handle('export:docx', async (event, options = {}) => {
 
 // Export to HTML with assets folder
 ipcMain.handle('export:html', async (event, options = {}) => {
-  const { html, fileName = 'document.html', assets = [] } = options;
+  const { html, fileName = 'document.html', assets = [], outputPath } = options;
 
-  const result = await dialog.showSaveDialog(BrowserWindow.getFocusedWindow(), {
-    title: 'Export to HTML',
-    defaultPath: fileName,
-    filters: [{ name: 'HTML', extensions: ['html'] }],
-  });
-
-  if (result.canceled || !result.filePath) {
-    return { success: false, canceled: true };
+  let chosenPath = outputPath;
+  if (!chosenPath) {
+    const result = await dialog.showSaveDialog(BrowserWindow.getFocusedWindow(), {
+      title: 'Export to HTML',
+      defaultPath: fileName,
+      filters: [{ name: 'HTML', extensions: ['html'] }],
+    });
+    if (result.canceled || !result.filePath) {
+      return { success: false, canceled: true };
+    }
+    chosenPath = result.filePath;
   }
 
   try {
-    const baseName = result.filePath.replace(/\.html$/i, '');
+    const baseName = chosenPath.replace(/\.html$/i, '');
     const assetsDir = `${baseName}_assets`;
     let processedHtml = html;
 
@@ -933,12 +1080,12 @@ ipcMain.handle('export:html', async (event, options = {}) => {
       }
     }
 
-    fs.writeFileSync(result.filePath, processedHtml, 'utf-8');
-    logger.info('HTML exported:', result.filePath);
+    fs.writeFileSync(chosenPath, processedHtml, 'utf-8');
+    logger.info('HTML exported:', chosenPath);
     if (assets.length > 0) {
       logger.info('Assets saved to:', assetsDir);
     }
-    return { success: true, filePath: result.filePath };
+    return { success: true, filePath: chosenPath };
   } catch (error) {
     logger.error('HTML export failed:', error.message);
     return { success: false, error: error.message };

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Headless CLI wrapper for cygnus-md (development mode).
+# Invokes the local electron build with the export subcommand.
+#
+# Usage: cygnus-md-export <input.md> <output.{pdf|docx}> [--style STYLE] [--format FMT]
+#
+# Styles: default, academic, minimal, streamline, focus, swiss,
+#         paperback, coral, slate, luxe, geometric
+
+set -e
+DIR="$(cd "$(dirname "$0")/.." && pwd)"
+ELECTRON_BIN="$DIR/node_modules/.bin/electron"
+
+if [ ! -x "$ELECTRON_BIN" ]; then
+  echo "electron not found at $ELECTRON_BIN — run \`npm install\` and \`npm run build\` first" >&2
+  exit 1
+fi
+
+if [ ! -f "$DIR/dist/index.html" ]; then
+  echo "build artifacts missing — run \`npm run build\` first" >&2
+  exit 1
+fi
+
+exec "$ELECTRON_BIN" "$DIR" --no-sandbox export "$@"
