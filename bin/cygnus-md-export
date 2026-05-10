@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Headless CLI wrapper for cygnus-md (development mode).
-# Invokes the local electron build with the export subcommand.
+# Headless CLI for cygnus-md.
 #
 # Usage: cygnus-md-export <input.md> <output.{pdf|docx}> [--style STYLE] [--format FMT]
 #
@@ -8,17 +7,63 @@
 #         paperback, coral, slate, luxe, geometric
 
 set -e
-DIR="$(cd "$(dirname "$0")/.." && pwd)"
-ELECTRON_BIN="$DIR/node_modules/.bin/electron"
 
-if [ ! -x "$ELECTRON_BIN" ]; then
-  echo "electron not found at $ELECTRON_BIN — run \`npm install\` and \`npm run build\` first" >&2
+# Original invocation dir (BEFORE symlink resolution).
+# When npm installs the package, $0 is typically a symlink at
+# <project>/node_modules/.bin/cygnus-md-export. Electron is hoisted to the
+# same directory by npm's bin-linking, so this is often the right place to look.
+INVOKE_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# Resolve symlinks to find the package root (where electron/main.cjs + dist live).
+SCRIPT="$0"
+while [ -h "$SCRIPT" ]; do
+  RESOLVED_DIR="$(cd "$(dirname "$SCRIPT")" && pwd)"
+  SCRIPT="$(readlink "$SCRIPT")"
+  [[ "$SCRIPT" != /* ]] && SCRIPT="$RESOLVED_DIR/$SCRIPT"
+done
+PKG_DIR="$(cd "$(dirname "$SCRIPT")/.." && pwd)"
+
+# Locate electron binary across install scenarios:
+ELECTRON_BIN=""
+
+# 1. Sibling of invocation (npm install puts the bin symlink next to electron's bin).
+if [ -x "$INVOKE_DIR/electron" ]; then
+  ELECTRON_BIN="$INVOKE_DIR/electron"
+fi
+
+# 2. Inside the package's own node_modules (dev mode, source checkout).
+if [ -z "$ELECTRON_BIN" ] && [ -x "$PKG_DIR/node_modules/.bin/electron" ]; then
+  ELECTRON_BIN="$PKG_DIR/node_modules/.bin/electron"
+fi
+
+# 3. Walk up from the package dir to find electron in any ancestor's node_modules
+#    (npm hoists transitive deps to the consuming project's root).
+if [ -z "$ELECTRON_BIN" ]; then
+  d="$PKG_DIR"
+  while [ "$d" != "/" ]; do
+    if [ -x "$d/node_modules/.bin/electron" ]; then
+      ELECTRON_BIN="$d/node_modules/.bin/electron"
+      break
+    fi
+    d="$(dirname "$d")"
+  done
+fi
+
+# 4. PATH fallback (system-wide installation, e.g., `npm install -g electron`).
+if [ -z "$ELECTRON_BIN" ] && command -v electron >/dev/null 2>&1; then
+  ELECTRON_BIN="$(command -v electron)"
+fi
+
+if [ -z "$ELECTRON_BIN" ]; then
+  echo "electron not found." >&2
+  echo "ensure 'electron' is installed (e.g., \`npm install electron\` or \`npm install -g electron\`)" >&2
   exit 1
 fi
 
-if [ ! -f "$DIR/dist/index.html" ]; then
-  echo "build artifacts missing — run \`npm run build\` first" >&2
+if [ ! -f "$PKG_DIR/dist/index.html" ]; then
+  echo "build artifacts missing at $PKG_DIR/dist/index.html" >&2
+  echo "(this package needs to be published with 'dist/' included)" >&2
   exit 1
 fi
 
-exec "$ELECTRON_BIN" "$DIR" --no-sandbox export "$@"
+exec "$ELECTRON_BIN" "$PKG_DIR" --no-sandbox export "$@"
