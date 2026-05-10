@@ -1,7 +1,7 @@
 {
   "name": "cygnus-md",
   "private": false,
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "Paginated Markdown reader + headless md→PDF/DOCX CLI exporter (11 templates, KaTeX, Mermaid)",
   "keywords": [
     "markdown",
